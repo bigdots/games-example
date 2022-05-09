@@ -1,0 +1,13 @@
+{
+  "ver": "4.0.21",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "4a2c8b41-ca0c-4922-a393-a27d89265db7",
+  "files": [],
+  "subMetas": {},
+  "userData": {
+    "importAsPlugin": false,
+    "moduleId": "project:///assets/GlobalScript/LayoutForTopToolAndBanner.js",
+    "importerSettings": 0
+  }
+}

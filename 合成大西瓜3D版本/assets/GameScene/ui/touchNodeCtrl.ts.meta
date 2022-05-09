@@ -1,0 +1,13 @@
+{
+  "ver": "4.0.21",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "6874cf54-2157-4ee1-a4a6-6d1300ca4281",
+  "files": [],
+  "subMetas": {},
+  "userData": {
+    "importAsPlugin": false,
+    "moduleId": "project:///assets/GameScene/ui/touchNodeCtrl.js",
+    "importerSettings": 0
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "__version__": "1.0.1",
+  "script": {
+    "useDefineForClassFields": false,
+    "allowDeclareFields": false
+  },
+  "general": {
+    "designResolution": {
+      "width": 640,
+      "height": 1136
+    }
+  },
+  "physics": {
+    "collisionGroups": [
+      {
+        "index": 1,
+        "name": "fruit"
+      },
+      {
+        "index": 2,
+        "name": "glass"
+      }
+    ],
+    "collisionMatrix": {
+      "0": 1,
+      "1": 6,
+      "2": 2
+    },
+    "gravity": {
+      "y": -30
+    },
+    "allowSleep": false
+  },
+  "layer": [
+    {
+      "name": "fruit",
+      "value": 1
+    },
+    {
+      "name": "glass",
+      "value": 2
+    }
+  ]
+}

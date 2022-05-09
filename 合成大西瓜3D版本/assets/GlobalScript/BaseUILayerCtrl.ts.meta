@@ -1,0 +1,13 @@
+{
+  "ver": "4.0.21",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "1ee91558-eac4-4051-9087-7db53af6f196",
+  "files": [],
+  "subMetas": {},
+  "userData": {
+    "importAsPlugin": false,
+    "moduleId": "project:///assets/GlobalScript/BaseUILayerCtrl.js",
+    "importerSettings": 0
+  }
+}

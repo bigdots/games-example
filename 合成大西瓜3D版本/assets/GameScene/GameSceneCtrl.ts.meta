@@ -1,0 +1,13 @@
+{
+  "ver": "4.0.21",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "6559f3cb-7cba-4c3e-9ac3-699d164600d3",
+  "files": [],
+  "subMetas": {},
+  "userData": {
+    "importAsPlugin": false,
+    "moduleId": "project:///assets/GameScene/GameSceneCtrl.js",
+    "importerSettings": 0
+  }
+}

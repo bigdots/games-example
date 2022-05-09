@@ -1,0 +1,13 @@
+{
+  "ver": "4.0.21",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "f086f1bf-a9b0-494f-9e24-1c24ebac5133",
+  "files": [],
+  "subMetas": {},
+  "userData": {
+    "importAsPlugin": false,
+    "moduleId": "project:///assets/GlobalScript/GlobalTemp.js",
+    "importerSettings": 0
+  }
+}

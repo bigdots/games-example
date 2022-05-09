@@ -1,0 +1,110 @@
+{
+  "ver": "2.0.10",
+  "importer": "fbx",
+  "imported": true,
+  "uuid": "a35c7ece-37ff-4ef1-a120-674549e21cc7",
+  "files": [],
+  "subMetas": {
+    "d9f64": {
+      "importer": "gltf-mesh",
+      "uuid": "a35c7ece-37ff-4ef1-a120-674549e21cc7@d9f64",
+      "displayName": "",
+      "id": "d9f64",
+      "name": "watermelon.mesh",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.1.0",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "4ae1c": {
+      "importer": "gltf-embeded-image",
+      "uuid": "a35c7ece-37ff-4ef1-a120-674549e21cc7@4ae1c",
+      "displayName": "",
+      "id": "4ae1c",
+      "name": "xigua.png.image",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.3",
+      "imported": true,
+      "files": [
+        ".png",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "4d4cc": {
+      "importer": "texture",
+      "uuid": "a35c7ece-37ff-4ef1-a120-674549e21cc7@4d4cc",
+      "displayName": "",
+      "id": "4d4cc",
+      "name": "xigua.texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 1,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "a35c7ece-37ff-4ef1-a120-674549e21cc7@4ae1c"
+      },
+      "ver": "1.0.20",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "c1587": {
+      "importer": "gltf-scene",
+      "uuid": "a35c7ece-37ff-4ef1-a120-674549e21cc7@c1587",
+      "displayName": "",
+      "id": "c1587",
+      "name": "watermelon.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.12",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [
+      {
+        "name": "xigua.png",
+        "uri": "a35c7ece-37ff-4ef1-a120-674549e21cc7@4ae1c"
+      }
+    ],
+    "redirect": "a35c7ece-37ff-4ef1-a120-674549e21cc7@c1587",
+    "assetFinder": {
+      "meshes": [
+        "a35c7ece-37ff-4ef1-a120-674549e21cc7@d9f64"
+      ],
+      "skeletons": [],
+      "textures": [
+        "a35c7ece-37ff-4ef1-a120-674549e21cc7@4d4cc"
+      ],
+      "materials": [
+        "249cb8ee-a412-4ad7-b760-5ac222951685",
+        "c6fa6624-50b2-4b78-8ae5-b9e0b677eebd"
+      ],
+      "scenes": [
+        "a35c7ece-37ff-4ef1-a120-674549e21cc7@c1587"
+      ]
+    },
+    "dumpMaterials": true,
+    "materialDumpDir": "db://assets/res/fbx/Materials_watermelon",
+    "legacyFbxImporter": true
+  }
+}

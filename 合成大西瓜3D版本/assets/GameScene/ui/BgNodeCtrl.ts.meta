@@ -1,0 +1,13 @@
+{
+  "ver": "4.0.21",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "7bcf64f1-c6f3-44ad-b640-828c74f45fef",
+  "files": [],
+  "subMetas": {},
+  "userData": {
+    "importAsPlugin": false,
+    "moduleId": "project:///assets/GameScene/ui/BgNodeCtrl.js",
+    "importerSettings": 0
+  }
+}

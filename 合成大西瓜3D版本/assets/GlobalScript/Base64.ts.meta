@@ -1,0 +1,13 @@
+{
+  "ver": "4.0.21",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "3bbfff11-6822-4ca9-a5b9-7557433f3e1c",
+  "files": [],
+  "subMetas": {},
+  "userData": {
+    "importAsPlugin": false,
+    "moduleId": "project:///assets/GlobalScript/Base64.js",
+    "importerSettings": 0
+  }
+}

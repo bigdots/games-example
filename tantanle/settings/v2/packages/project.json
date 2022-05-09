@@ -1,0 +1,16 @@
+{
+  "physics": {
+    "defaultMaterial": {
+      "restitution": 0.1
+    },
+    "allowSleep": true,
+    "autoSimulation": true
+  },
+  "general": {
+    "designResolution": {
+      "width": 640,
+      "height": 960
+    }
+  },
+  "__version__": "1.0.2"
+}

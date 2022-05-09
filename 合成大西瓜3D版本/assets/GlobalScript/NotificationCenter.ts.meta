@@ -1,0 +1,13 @@
+{
+  "ver": "4.0.21",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "baaeb516-a600-4c83-8bf7-1238ad111e51",
+  "files": [],
+  "subMetas": {},
+  "userData": {
+    "importAsPlugin": false,
+    "moduleId": "project:///assets/GlobalScript/NotificationCenter.js",
+    "importerSettings": 0
+  }
+}

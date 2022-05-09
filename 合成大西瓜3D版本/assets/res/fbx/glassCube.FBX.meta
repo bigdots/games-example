@@ -1,0 +1,93 @@
+{
+  "ver": "2.0.10",
+  "importer": "fbx",
+  "imported": true,
+  "uuid": "dfe47937-82c6-435c-825e-fcfcb05f0953",
+  "files": [],
+  "subMetas": {
+    "49bf6": {
+      "importer": "gltf-mesh",
+      "uuid": "dfe47937-82c6-435c-825e-fcfcb05f0953@49bf6",
+      "displayName": "",
+      "id": "49bf6",
+      "name": "布尔_1.mesh",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.1.0",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "22e2a": {
+      "importer": "gltf-material",
+      "uuid": "dfe47937-82c6-435c-825e-fcfcb05f0953@22e2a",
+      "displayName": "",
+      "id": "22e2a",
+      "name": "材质.material",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "9aeec": {
+      "importer": "gltf-material",
+      "uuid": "dfe47937-82c6-435c-825e-fcfcb05f0953@9aeec",
+      "displayName": "",
+      "id": "9aeec",
+      "name": "材质.1.material",
+      "userData": {
+        "gltfIndex": 1
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "cc476": {
+      "importer": "gltf-scene",
+      "uuid": "dfe47937-82c6-435c-825e-fcfcb05f0953@cc476",
+      "displayName": "",
+      "id": "cc476",
+      "name": "glassCube.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.12",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "redirect": "dfe47937-82c6-435c-825e-fcfcb05f0953@cc476",
+    "assetFinder": {
+      "meshes": [
+        "dfe47937-82c6-435c-825e-fcfcb05f0953@49bf6"
+      ],
+      "skeletons": [],
+      "textures": [],
+      "materials": [
+        "dfe47937-82c6-435c-825e-fcfcb05f0953@22e2a",
+        "dfe47937-82c6-435c-825e-fcfcb05f0953@9aeec"
+      ],
+      "scenes": [
+        "dfe47937-82c6-435c-825e-fcfcb05f0953@cc476"
+      ]
+    },
+    "legacyFbxImporter": true
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "ver": "4.0.21",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "a7d38b33-db12-4cd3-91ae-bc404d4f383b",
+  "files": [],
+  "subMetas": {},
+  "userData": {
+    "importAsPlugin": false,
+    "moduleId": "project:///assets/GlobalScript/AudioHelper.js",
+    "importerSettings": 0
+  }
+}

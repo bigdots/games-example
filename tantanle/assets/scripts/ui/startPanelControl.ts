@@ -1,0 +1,16 @@
+import { _decorator } from 'cc'
+import { uiControl } from '../framework/UI/uiControl'
+const { ccclass } = _decorator
+
+@ccclass('startPanelControl')
+export class startPanelControl extends uiControl {
+  onLoad() {
+    super.onLoad()
+    console.log(this.vModel)
+    this.vModel['Button'].on('touch-start', this.ontouchstart)
+  }
+
+  ontouchstart(e) {
+    console.log('MVC')
+  }
+}

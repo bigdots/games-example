@@ -1,0 +1,13 @@
+{
+  "ver": "4.0.21",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "23abaa76-661b-42c7-82cb-b273591242da",
+  "files": [],
+  "subMetas": {},
+  "userData": {
+    "importAsPlugin": false,
+    "moduleId": "project:///assets/GameScene/ui/RefreshFruitNodeCtrl.js",
+    "importerSettings": 0
+  }
+}

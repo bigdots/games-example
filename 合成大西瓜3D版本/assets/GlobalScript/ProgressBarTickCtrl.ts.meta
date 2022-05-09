@@ -1,0 +1,13 @@
+{
+  "ver": "4.0.21",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "21a29009-08d4-46f7-bddd-3b7d09266a13",
+  "files": [],
+  "subMetas": {},
+  "userData": {
+    "importAsPlugin": false,
+    "moduleId": "project:///assets/GlobalScript/ProgressBarTickCtrl.js",
+    "importerSettings": 0
+  }
+}

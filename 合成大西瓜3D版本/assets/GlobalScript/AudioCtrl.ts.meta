@@ -1,0 +1,13 @@
+{
+  "ver": "4.0.21",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "91d23b20-d8b2-4baf-b68d-1d7be5830ed3",
+  "files": [],
+  "subMetas": {},
+  "userData": {
+    "importAsPlugin": false,
+    "moduleId": "project:///assets/GlobalScript/AudioCtrl.js",
+    "importerSettings": 0
+  }
+}

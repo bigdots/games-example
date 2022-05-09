@@ -1,0 +1,74 @@
+{
+  "ver": "1.0.21",
+  "importer": "image",
+  "imported": true,
+  "uuid": "e75eb43a-bd9a-48da-995d-65dd0b30199f",
+  "files": [
+    ".png",
+    ".json"
+  ],
+  "subMetas": {
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "e75eb43a-bd9a-48da-995d-65dd0b30199f@6c48a",
+      "displayName": "icon_fruit_4",
+      "id": "6c48a",
+      "name": "texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 1,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "e75eb43a-bd9a-48da-995d-65dd0b30199f"
+      },
+      "ver": "1.0.20",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f9941": {
+      "importer": "sprite-frame",
+      "uuid": "e75eb43a-bd9a-48da-995d-65dd0b30199f@f9941",
+      "displayName": "icon_fruit_4",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "userData": {
+        "trimType": "auto",
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 2,
+        "offsetY": -1,
+        "trimX": 16,
+        "trimY": 12,
+        "width": 52,
+        "height": 58,
+        "rawWidth": 80,
+        "rawHeight": 80,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "e75eb43a-bd9a-48da-995d-65dd0b30199f@6c48a",
+        "atlasUuid": "",
+        "packable": true
+      },
+      "ver": "1.0.9",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "hasAlpha": true,
+    "type": "sprite-frame",
+    "redirect": "e75eb43a-bd9a-48da-995d-65dd0b30199f@f9941"
+  }
+}

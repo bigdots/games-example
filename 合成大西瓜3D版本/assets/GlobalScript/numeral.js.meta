@@ -1,0 +1,19 @@
+{
+  "ver": "4.0.21",
+  "importer": "javascript",
+  "imported": true,
+  "uuid": "ac13478e-6b49-45e1-94df-648e5151678d",
+  "files": [
+    ".js"
+  ],
+  "subMetas": {},
+  "userData": {
+    "importAsPlugin": true,
+    "moduleId": "project:///assets/GlobalScript/numeral.js",
+    "importerSettings": 0,
+    "isPlugin": true,
+    "loadPluginInWeb": true,
+    "loadPluginInNative": true,
+    "loadPluginInEditor": false
+  }
+}

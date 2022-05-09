@@ -1,0 +1,13 @@
+{
+  "ver": "4.0.21",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "5e5c6254-7095-45c3-a05d-d0cd5d6809dd",
+  "files": [],
+  "subMetas": {},
+  "userData": {
+    "importAsPlugin": false,
+    "moduleId": "project:///assets/GlobalScript/LanguageSpritesCtrl.js",
+    "importerSettings": 0
+  }
+}

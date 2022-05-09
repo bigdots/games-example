@@ -1,0 +1,13 @@
+{
+  "ver": "4.0.21",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "e1072f70-eaab-45c4-aeb3-2a923d5812a6",
+  "files": [],
+  "subMetas": {},
+  "userData": {
+    "importAsPlugin": false,
+    "moduleId": "project:///assets/resources/prefabs/gameOverLayer/GameOverLayer.js",
+    "importerSettings": 0
+  }
+}

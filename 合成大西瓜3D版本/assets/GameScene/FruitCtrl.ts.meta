@@ -1,0 +1,13 @@
+{
+  "ver": "4.0.21",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "7ed5da6d-ca4b-4529-8be8-a5b3cdf58f03",
+  "files": [],
+  "subMetas": {},
+  "userData": {
+    "importAsPlugin": false,
+    "moduleId": "project:///assets/GameScene/FruitCtrl.js",
+    "importerSettings": 0
+  }
+}

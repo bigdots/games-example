@@ -1,0 +1,13 @@
+{
+  "ver": "4.0.21",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "4bc2b694-c133-42b0-af59-8c0cfaaef241",
+  "files": [],
+  "subMetas": {},
+  "userData": {
+    "importAsPlugin": false,
+    "moduleId": "project:///assets/GlobalScript/LanguageLabelTicksCtrl.js",
+    "importerSettings": 0
+  }
+}

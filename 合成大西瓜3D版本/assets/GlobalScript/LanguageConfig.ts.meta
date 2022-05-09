@@ -1,0 +1,13 @@
+{
+  "ver": "4.0.21",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "b3d00314-6aa9-4909-8359-68f8831ba8d2",
+  "files": [],
+  "subMetas": {},
+  "userData": {
+    "importAsPlugin": false,
+    "moduleId": "project:///assets/GlobalScript/LanguageConfig.js",
+    "importerSettings": 0
+  }
+}

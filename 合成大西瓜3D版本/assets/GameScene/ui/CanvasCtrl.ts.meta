@@ -1,0 +1,13 @@
+{
+  "ver": "4.0.21",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "aad392ce-fdca-4731-bded-6e20ddfbe2fd",
+  "files": [],
+  "subMetas": {},
+  "userData": {
+    "importAsPlugin": false,
+    "moduleId": "project:///assets/GameScene/ui/CanvasCtrl.js",
+    "importerSettings": 0
+  }
+}

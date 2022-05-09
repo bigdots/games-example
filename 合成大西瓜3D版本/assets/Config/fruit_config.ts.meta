@@ -1,0 +1,13 @@
+{
+  "ver": "4.0.21",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "c840ef4d-fbbc-4d1e-b8f5-6473c01cbf95",
+  "files": [],
+  "subMetas": {},
+  "userData": {
+    "importAsPlugin": false,
+    "moduleId": "project:///assets/Config/fruit_config.js",
+    "importerSettings": 0
+  }
+}

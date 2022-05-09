@@ -1,0 +1,13 @@
+{
+  "ver": "4.0.21",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "759ec0d1-f9e8-4568-8103-fa091b547152",
+  "files": [],
+  "subMetas": {},
+  "userData": {
+    "importAsPlugin": false,
+    "moduleId": "project:///assets/GlobalScript/LanguageLabelsCtrl.js",
+    "importerSettings": 0
+  }
+}

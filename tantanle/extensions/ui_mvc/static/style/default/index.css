@@ -1,0 +1,11 @@
+ui-file {
+  display: block;
+  width: 90%;
+  margin: 15px auto;
+}
+
+ui-button {
+  width: 30%;
+  display: block;
+  margin: 0 auto;
+}

@@ -1,0 +1,13 @@
+{
+  "ver": "4.0.21",
+  "importer": "typescript",
+  "imported": true,
+  "uuid": "4559c97a-5f9a-4845-b7cd-96f29ae1aa08",
+  "files": [],
+  "subMetas": {},
+  "userData": {
+    "importAsPlugin": false,
+    "moduleId": "project:///assets/GlobalScript/LabelTickCtrl.js",
+    "importerSettings": 0
+  }
+}
