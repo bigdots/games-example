@@ -29,6 +29,7 @@ CCProgram vs %{
   precision highp float;
   #include <input-standard>
   #include <cc-global>
+  #include <decode-base>
   #include <cc-local-batch>
   #include <input-standard>
 

@@ -67,7 +67,8 @@
       "normalStrenth": 1,
       "mainTexture": {
         "__uuid__": "d971b709-319e-4ecf-ab72-2a1dae1226af@6c48a"
-      }
+      },
+      "normalStrength": 1
     }
   ]
 }
