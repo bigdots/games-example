@@ -1,5 +1,5 @@
 import { util } from './util'
-import { uiManager } from './uiManager2'
+import { uiManager } from './uiManager'
 import { _decorator, Vec3, SpriteFrame, SpriteComponent, sys, Node } from 'cc'
 import { playerData } from './playerData'
 import { constant } from './constant'

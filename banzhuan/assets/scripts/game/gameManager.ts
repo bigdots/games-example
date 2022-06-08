@@ -1,4 +1,5 @@
 import { _decorator, Component, Prefab, instantiate } from 'cc'
+import { camareManager } from '../framework/cameraManager'
 import { clientEvent } from '../framework/clientEvent'
 import { CSV } from '../framework/CSV'
 import { ResManager } from '../framework/ResManager'
@@ -47,9 +48,7 @@ export class GameManager extends Component {
     ResManager.instance.preloadResPackage(
       resMgr,
       (now: number, total: number) => {},
-      () => {
-        this.Entergame()
-      }
+      this.Entergame
     )
 
     // 加载成功，显示开始界面2d

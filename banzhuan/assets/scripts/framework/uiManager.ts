@@ -28,14 +28,14 @@ export class uiManager {
   private _arrPopupDialog: any = []
   private _showTipsTime: number = 0
 
-  private static _instance: uiManager2
+  private static _instance: uiManager
 
   public static get instance() {
     if (this._instance) {
       return this._instance
     }
 
-    this._instance = new uiManager2()
+    this._instance = new uiManager()
     return this._instance
   }
 

@@ -3,13 +3,16 @@ const { ccclass, property } = _decorator
 
 @ccclass('ResManager')
 export class ResManager extends Component {
-  static _instance: ResManager | null = null
+  static instance: ResManager | null = null
 
-  static get instance() {
-    if (this._instance === null) {
-      this._instance = new ResManager()
+  onLoad() {
+    // this._node = this.node
+    if (ResManager.instance === null) {
+      ResManager.instance = this
+    } else {
+      this.destroy()
+      return
     }
-    return this._instance
   }
 
   private abBunds: any = {}

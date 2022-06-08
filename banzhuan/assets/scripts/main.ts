@@ -10,7 +10,6 @@ export class main extends Component {
   update(deltaTime: number) {}
 
   onLoad() {
-    console.error(9999)
     // 初始化游戏框架代码：资源管理、事件管理、UI管理、音频管理、网络管理、协议管理
     this.node.addComponent(ResManager)
     // end
