@@ -9,9 +9,11 @@ import {
   isValid,
   Vec3,
   UITransformComponent,
+  instantiate,
 } from 'cc'
 import { resourceUtil } from './resourceUtil'
 import { poolManager } from './poolManager'
+import { ResManager } from './ResManager'
 // import { constant } from './constant'
 // import { tips } from '../ui/common/tips'
 const { ccclass, property } = _decorator
@@ -54,52 +56,26 @@ export class uiManager {
   }
 
   /**
-   * 显示单例界面
+   * 显示界面
    * @param {String} panelPath
    * @param {Array} args
    * @param {Function} cb 回调函数，创建完毕后回调
    */
-  public showDialog(panelPath: string, args?: any, cb?: Function) {
+  public showDialog(abName: string, url: string, cb?: Function) {
+    const panelPath = `${abName}/${url}`
     if (this._dictLoading[panelPath]) {
       return
     }
 
-    let idxSplit = panelPath.lastIndexOf('/')
-    let scriptName = panelPath.slice(idxSplit + 1)
-
-    if (!args) {
-      args = []
-    }
-
+    let panel: Node | null = null
     if (this._dictSharedPanel.hasOwnProperty(panelPath)) {
-      let panel = this._dictSharedPanel[panelPath]
-      if (isValid(panel)) {
-        panel.parent = find('Canvas')
-        panel.active = true
-        let script = panel.getComponent(scriptName)
-
-        // 或者首字母大写
-        let script2 = panel.getComponent(
-          scriptName.charAt(0).toUpperCase() + scriptName.slice(1)
-        )
-
-        if (script && script.show) {
-          script.show.apply(script, args)
-          cb && cb(script)
-        } else if (script2 && script2.show) {
-          script2.show.apply(script2, args)
-          cb && cb(script2)
-        } else {
-          throw `查找不到脚本文件${scriptName}`
-        }
-
-        return
-      }
-    }
-
-    // 如果是新界面，则重新加载
-    this._dictLoading[panelPath] = true
-    resourceUtil.createUI(panelPath, (err: any, node: any) => {
+      panel = this._dictSharedPanel[panelPath]
+    } else {
+      // 如果是新界面，则重新加载
+      this._dictLoading[panelPath] = true
+      const startPanelPrefab = ResManager.instance.getAsset(abName, url)
+      panel = instantiate(startPanelPrefab)
+      panel.setPosition(0, 0, 0)
       //判断是否有可能在显示前已经被关掉了？
       let isCloseBeforeShow = false
       if (!this._dictLoading[panelPath]) {
@@ -108,63 +84,39 @@ export class uiManager {
       }
 
       this._dictLoading[panelPath] = false
-      if (err) {
-        console.error(err)
-        return
-      }
-
-      // node.getComponent(UITransformComponent).priority = constant.ZORDER.DIALOG;
-
-      this._dictSharedPanel[panelPath] = node
-
-      let script: any = node.getComponent(scriptName)
-      let script2: any = node.getComponent(
-        scriptName.charAt(0).toUpperCase() + scriptName.slice(1)
-      )
-      if (script && script.show) {
-        script.show.apply(script, args)
-        cb && cb(script)
-      } else if (script2 && script2.show) {
-        script2.show.apply(script2, args)
-        cb && cb(script2)
-      } else {
-        throw `查找不到脚本文件${scriptName}`
-      }
+      this._dictSharedPanel[panelPath] = panel
 
       if (isCloseBeforeShow) {
         //如果在显示前又被关闭，则直接触发关闭掉
         this.hideDialog(panelPath)
       }
-    })
+    }
+    // 添加到canvas
+    if (isValid(panel)) {
+      panel.parent = find('Canvas')
+      panel.active = true
+      return
+    }
   }
 
   /**
-   * 隐藏单例界面
+   * 隐藏界面
    * @param {String} panelPath
    * @param {fn} callback
    */
   public hideDialog(panelPath: string, callback?: Function) {
-    if (this._dictSharedPanel.hasOwnProperty(panelPath)) {
-      let panel = this._dictSharedPanel[panelPath]
-      if (panel && isValid(panel)) {
-        // 隐藏动画
-        let ani = panel.getComponent('animationUI')
-        if (ani) {
-          ani.close(() => {
-            panel.parent = null // 回收节点，但不是销毁
-            if (callback && typeof callback === 'function') {
-              callback()
-            }
-          })
-        } else {
-          panel.parent = null
-          if (callback && typeof callback === 'function') {
-            callback()
-          }
-        }
-      } else if (callback && typeof callback === 'function') {
-        callback()
-      }
+    if (!this._dictSharedPanel.hasOwnProperty(panelPath)) {
+      return
+    }
+
+    let panel = this._dictSharedPanel[panelPath]
+
+    if (panel && isValid(panel)) {
+      panel.parent = null // 回收节点，但不是销毁
+    }
+
+    if (callback && typeof callback === 'function') {
+      callback()
     }
 
     this._dictLoading[panelPath] = false

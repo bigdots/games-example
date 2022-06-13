@@ -57,13 +57,13 @@ export class mapManager extends Component {
   private _loadBricks(data) {
     let brickPreab = null
     if (data.name === '2001') {
-      brickPreab = ResManager.instance.getAsset('map', 'brick/bricksblue')
+      brickPreab = ResManager.instance.getAsset('map', 'brick/bricks1')
     }
     if (data.name === '2002') {
-      brickPreab = ResManager.instance.getAsset('map', 'brick/bricksred')
+      brickPreab = ResManager.instance.getAsset('map', 'brick/bricks2')
     }
     if (data.name === '2003') {
-      brickPreab = ResManager.instance.getAsset('map', 'brick/bricksyellow')
+      brickPreab = ResManager.instance.getAsset('map', 'brick/bricks3')
     }
     if (!brickPreab) {
       return

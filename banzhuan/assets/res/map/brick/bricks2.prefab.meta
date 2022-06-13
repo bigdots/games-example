@@ -2,12 +2,12 @@
   "ver": "1.1.38",
   "importer": "prefab",
   "imported": true,
-  "uuid": "f2d2caae-e495-46f4-9381-6c6fbb20e5dc",
+  "uuid": "fc13bae6-9f08-4c57-ba6c-4de55f0fde3a",
   "files": [
     ".json"
   ],
   "subMetas": {},
   "userData": {
-    "syncNodeName": "bricks"
+    "syncNodeName": "bricks2"
   }
 }

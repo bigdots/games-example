@@ -3,6 +3,7 @@ import { camareManager } from '../framework/cameraManager'
 import { clientEvent } from '../framework/clientEvent'
 import { CSV } from '../framework/CSV'
 import { ResManager } from '../framework/ResManager'
+import { uiManager } from '../framework/uiManager'
 import { mapManager } from './mapManager'
 import { palyerManager } from './palyerManager'
 
@@ -27,9 +28,9 @@ export class GameManager extends Component {
         accessType: Prefab,
         urls: [
           'brick/bricks',
-          'brick/bricksblue',
-          'brick/bricksred',
-          'brick/bricksyellow',
+          'brick/bricks1',
+          'brick/bricks2',
+          'brick/bricks3',
           'road/road',
           'box/box',
         ],
@@ -44,6 +45,10 @@ export class GameManager extends Component {
         accessType: Prefab,
         urls: ['man/newMan'],
       },
+      GUI: {
+        accessType: Prefab,
+        urls: ['startPanel'],
+      },
     }
     ResManager.instance.preloadResPackage(
       resMgr,
@@ -56,6 +61,8 @@ export class GameManager extends Component {
   }
 
   private Entergame() {
+    // 显示开始UI
+    uiManager.instance.showDialog('GUI', 'startPanel')
     // 初始化地图
     clientEvent.dispatchEvent('gameinit')
   }
