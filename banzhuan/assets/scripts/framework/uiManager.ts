@@ -1,21 +1,8 @@
-import {
-  _decorator,
-  Component,
-  Node,
-  SpriteComponent,
-  Color,
-  RichTextComponent,
-  find,
-  isValid,
-  Vec3,
-  UITransformComponent,
-  instantiate,
-} from 'cc'
+import { _decorator, Node, find, isValid, instantiate, Prefab } from 'cc'
 import { resourceUtil } from './resourceUtil'
 import { poolManager } from './poolManager'
 import { ResManager } from './ResManager'
-// import { constant } from './constant'
-// import { tips } from '../ui/common/tips'
+
 const { ccclass, property } = _decorator
 
 const SHOW_STR_INTERVAL_TIME = 800
@@ -26,18 +13,14 @@ export class uiManager {
   private _dictSharedPanel: any = {}
   // 是否正在加载UI界面
   private _dictLoading: any = {}
-  // 弹框队列
-  private _arrPopupDialog: any = []
-  private _showTipsTime: number = 0
 
   private static _instance: uiManager
 
   public static get instance() {
-    if (this._instance) {
-      return this._instance
+    if (!this._instance) {
+      this._instance = new uiManager()
     }
 
-    this._instance = new uiManager()
     return this._instance
   }
 
@@ -61,35 +44,26 @@ export class uiManager {
    * @param {Array} args
    * @param {Function} cb 回调函数，创建完毕后回调
    */
-  public showDialog(abName: string, url: string, cb?: Function) {
+  public async showDialog(abName: string, url: string, cb?: Function) {
     const panelPath = `${abName}/${url}`
     if (this._dictLoading[panelPath]) {
+      //如果正在创建
       return
     }
 
     let panel: Node | null = null
+    // 如果已经有了，则从缓存中取
     if (this._dictSharedPanel.hasOwnProperty(panelPath)) {
       panel = this._dictSharedPanel[panelPath]
     } else {
       // 如果是新界面，则重新加载
       this._dictLoading[panelPath] = true
-      const startPanelPrefab = ResManager.instance.getAsset(abName, url)
-      panel = instantiate(startPanelPrefab)
+      const panelPrefab: any = await ResManager.instance.load(abName, url)
+      panel = instantiate(panelPrefab)
       panel.setPosition(0, 0, 0)
-      //判断是否有可能在显示前已经被关掉了？
-      let isCloseBeforeShow = false
-      if (!this._dictLoading[panelPath]) {
-        //已经被关掉
-        isCloseBeforeShow = true
-      }
 
       this._dictLoading[panelPath] = false
       this._dictSharedPanel[panelPath] = panel
-
-      if (isCloseBeforeShow) {
-        //如果在显示前又被关闭，则直接触发关闭掉
-        this.hideDialog(panelPath)
-      }
     }
     // 添加到canvas
     if (isValid(panel)) {
@@ -104,7 +78,8 @@ export class uiManager {
    * @param {String} panelPath
    * @param {fn} callback
    */
-  public hideDialog(panelPath: string, callback?: Function) {
+  public hideDialog(abName: string, url: string, callback?: Function) {
+    const panelPath = `${abName}/${url}`
     if (!this._dictSharedPanel.hasOwnProperty(panelPath)) {
       return
     }
@@ -120,137 +95,5 @@ export class uiManager {
     }
 
     this._dictLoading[panelPath] = false
-  }
-
-  /**
-   * 将弹窗加入弹出窗队列
-   * @param {string} panelPath
-   * @param {string} scriptName
-   * @param {*} param
-   */
-  public pushToPopupSeq(panelPath: string, scriptName: string, param: any) {
-    let popupDialog = {
-      panelPath: panelPath,
-      scriptName: scriptName,
-      param: param,
-      isShow: false,
-    }
-
-    this._arrPopupDialog.push(popupDialog)
-
-    this._checkPopupSeq()
-  }
-
-  /**
-   * 将弹窗加入弹出窗队列
-   * @param {number} index
-   * @param {string} panelPath
-   * @param {string} scriptName
-   * @param {*} param
-   */
-  public insertToPopupSeq(index: number, panelPath: string, param: any) {
-    let popupDialog = {
-      panelPath: panelPath,
-      param: param,
-      isShow: false,
-    }
-
-    this._arrPopupDialog.splice(index, 0, popupDialog)
-    //this._checkPopupSeq();
-  }
-
-  /**
-   * 将弹窗从弹出窗队列中移除
-   * @param {string} panelPath
-   */
-  public shiftFromPopupSeq(panelPath: string) {
-    this.hideDialog(panelPath, () => {
-      if (
-        this._arrPopupDialog[0] &&
-        this._arrPopupDialog[0].panelPath === panelPath
-      ) {
-        this._arrPopupDialog.shift()
-        this._checkPopupSeq()
-      }
-    })
-  }
-
-  /**
-   * 检查当前是否需要弹窗
-   */
-  private _checkPopupSeq() {
-    if (this._arrPopupDialog.length > 0) {
-      let first = this._arrPopupDialog[0]
-
-      if (!first.isShow) {
-        this.showDialog(first.panelPath, first.param)
-        this._arrPopupDialog[0].isShow = true
-      }
-    }
-  }
-
-  /**
-   * 显示提示
-   * @param {String} content
-   * @param {Function} cb
-   */
-  public showTips(
-    content: string | number,
-    type: string = 'txt',
-    targetPos: Vec3 = new Vec3(),
-    scale: number = 1,
-    callback: Function = () => {}
-  ) {
-    let str = String(content)
-    let next = () => {
-      this._showTipsAni(str, type, targetPos, scale, callback)
-    }
-
-    var now = Date.now()
-    if (
-      now - this._showTipsTime < SHOW_STR_INTERVAL_TIME &&
-      type !== 'gold' &&
-      type !== 'heart'
-    ) {
-      var spareTime = SHOW_STR_INTERVAL_TIME - (now - this._showTipsTime)
-      setTimeout(() => {
-        next()
-      }, spareTime)
-
-      this._showTipsTime = now + spareTime
-    } else {
-      next()
-      this._showTipsTime = now
-    }
-  }
-
-  /**
-   * 显示tips
-   * @param {String} content
-   * @param {Function} cb
-   */
-  private _showTipsAni(
-    content: string,
-    type: string,
-    targetPos: Vec3,
-    scale: number,
-    callback?: Function
-  ) {
-    resourceUtil.getUIPrefabRes(
-      'common/tips',
-      function (err: any, prefab: any) {
-        if (err) {
-          return
-        }
-
-        let tipsNode = poolManager.instance.getNode(
-          prefab,
-          find('Canvas') as Node
-        )
-
-        // let tipScript = tipsNode.getComponent(tips) as tips
-        // tipScript.show(content, type, targetPos, scale, callback)
-      }
-    )
   }
 }

@@ -12,17 +12,7 @@ import {
 import { gameConstants } from '../utils/gameConstants'
 import { gameUtils } from '../utils/gameUtils'
 const { ccclass, property } = _decorator
-/*
-本脚本用于生成 module.csv中未包含的 新砖块堆样式 供策划添加新砖块堆使用；
-若想新增一种砖块样式：
-1.module.csv中同步添加信息
-    编号(ID)在 2000-2999之间
-    类型(type)为 brickLayer
-    资源名称(name)为 layer100   (100为替换数字 )
-    砖块堆数据(brickLayerData)为 当前编辑期内输入的砖块堆数据
-2.将当前砖块堆修改命名(与编号ID保持一致)后放入map场景的mapItemn中，点击mapNode节点脚本的——修改mapItem子节点命名 
-（否则在map场景中想要生成关卡地图时，将查找不到新的砖块堆）
- */
+
 const VEC3_NONE = new Vec3(0, 0, 0)
 
 @ccclass('CreateBrickLayer')

@@ -1,0 +1,63 @@
+{
+  "ver": "2.1.14",
+  "importer": "fbx",
+  "imported": true,
+  "uuid": "adfd5100-75fb-4b53-bd4a-81860f4c14a9",
+  "files": [],
+  "subMetas": {
+    "280c8": {
+      "importer": "gltf-mesh",
+      "uuid": "adfd5100-75fb-4b53-bd4a-81860f4c14a9@280c8",
+      "displayName": "",
+      "id": "280c8",
+      "name": "scoreLine.mesh",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.1.0",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "4dc5b": {
+      "importer": "gltf-scene",
+      "uuid": "adfd5100-75fb-4b53-bd4a-81860f4c14a9@4dc5b",
+      "displayName": "",
+      "id": "4dc5b",
+      "name": "scoreLine.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.12",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "legacyFbxImporter": true,
+    "dumpMaterials": true,
+    "disableMeshSplit": true,
+    "materialDumpDir": "db://assets/res/model/map",
+    "redirect": "adfd5100-75fb-4b53-bd4a-81860f4c14a9@4dc5b",
+    "assetFinder": {
+      "meshes": [
+        "adfd5100-75fb-4b53-bd4a-81860f4c14a9@280c8"
+      ],
+      "skeletons": [],
+      "textures": [],
+      "materials": [
+        "ce729052-def8-4201-a06e-0554934d70ce"
+      ],
+      "scenes": [
+        "adfd5100-75fb-4b53-bd4a-81860f4c14a9@4dc5b"
+      ]
+    }
+  }
+}

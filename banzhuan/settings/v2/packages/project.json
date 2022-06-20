@@ -5,5 +5,24 @@
       "width": 640,
       "height": 960
     }
+  },
+  "physics": {
+    "collisionGroups": [
+      {
+        "index": 3,
+        "name": "111"
+      },
+      {
+        "index": 4,
+        "name": "PLAYER"
+      }
+    ],
+    "collisionMatrix": {
+      "0": 23,
+      "1": 13,
+      "2": 3,
+      "3": 2,
+      "4": 1
+    }
   }
 }

@@ -1,18 +1,24 @@
-import { _decorator, Component, Node, assetManager } from 'cc'
+import {
+  _decorator,
+  Component,
+  Node,
+  assetManager,
+  AssetManager,
+  Asset,
+  SpriteFrame,
+} from 'cc'
 const { ccclass, property } = _decorator
 
 @ccclass('ResManager')
-export class ResManager extends Component {
-  static instance: ResManager | null = null
+export class ResManager {
+  static _instance: ResManager | null = null
 
-  onLoad() {
-    // this._node = this.node
-    if (ResManager.instance === null) {
-      ResManager.instance = this
-    } else {
-      this.destroy()
-      return
+  public static get instance() {
+    if (!this._instance) {
+      this._instance = new ResManager()
     }
+
+    return this._instance
   }
 
   private abBunds: any = {}
@@ -25,6 +31,77 @@ export class ResManager extends Component {
 
   public init(): void {}
 
+  private _loadBundle(abName): Promise<AssetManager.Bundle> {
+    return new Promise((resolve, reject) => {
+      let bundle = assetManager.getBundle(abName)
+      if (bundle) {
+        resolve(bundle)
+        return
+      }
+
+      assetManager.loadBundle(abName, (err, bundle) => {
+        if (err) {
+          reject(err)
+          return
+        }
+        resolve(bundle)
+      })
+    })
+  }
+
+  public async load(abName: string, url: string, type = null) {
+    let bundle = await this._loadBundle(abName)
+    return new Promise((resolve, reject) => {
+      bundle.load(url, type, (err, asset) => {
+        if (err) {
+          reject(err)
+          return
+        }
+        resolve(asset)
+      })
+    })
+  }
+
+  public async laodbacth(urls: Array<any>) {
+    const loadArr: any = urls.map((ele) => {
+      const cell = ele.indexOf('/')
+      const abName = ele.substring(0, cell)
+      const url = ele.substring(cell + 1, ele.length)
+
+      return this.load(abName, url)
+    })
+
+    return Promise.all(loadArr)
+  }
+
+  public async loadDir(abName: string, dir: string, type) {
+    let bundle = await this._loadBundle(abName)
+
+    return new Promise((resolve, reject) => {
+      bundle.loadDir(dir, type, (err, assets) => {
+        if (err) {
+          reject(err)
+          return
+        }
+        resolve(assets)
+      })
+    })
+  }
+
+  public async loadScene(abName, sceneName) {
+    let bundle = await this._loadBundle(abName)
+    return new Promise((resolve, reject) => {
+      bundle.loadScene(sceneName, (err, scene) => {
+        if (err) {
+          reject(err)
+          return
+        }
+        resolve(scene)
+      })
+    })
+  }
+
+  // 分割线
   private loadAssetsBundle(abName: string, endFunc: Function): void {
     assetManager.loadBundle(abName, (err, bundle) => {
       if (err !== null) {
@@ -37,6 +114,21 @@ export class ResManager extends Component {
         endFunc()
       }
     })
+  }
+
+  public async release(abName: string, url: string, type) {
+    let bundle = assetManager.getBundle(abName)
+    if (!bundle) {
+      return
+    }
+    bundle.release(url, type)
+  }
+  public async releaseAll(abName: string) {
+    let bundle = assetManager.getBundle(abName)
+    if (!bundle) {
+      return
+    }
+    bundle.releaseAll()
   }
 
   private loadRes(abBundle: any, url: any, typeClasss: any): void {

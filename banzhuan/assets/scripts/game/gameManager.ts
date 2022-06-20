@@ -1,11 +1,8 @@
-import { _decorator, Component, Prefab, instantiate } from 'cc'
-import { camareManager } from '../framework/cameraManager'
+import { _decorator, Component, Prefab, instantiate, director } from 'cc'
 import { clientEvent } from '../framework/clientEvent'
-import { CSV } from '../framework/CSV'
 import { ResManager } from '../framework/ResManager'
 import { uiManager } from '../framework/uiManager'
-import { mapManager } from './mapManager'
-import { palyerManager } from './palyerManager'
+import { Consts } from './consts'
 
 const { ccclass, property } = _decorator
 @ccclass('GameManager')
@@ -19,51 +16,27 @@ export class GameManager extends Component {
     return this._instance
   }
 
-  init() {
-    // 显示加载界面
-    // end
+  onLoad() {
+    clientEvent.on(Consts.GameEvent.GS_READY, this.init, this.node)
+    clientEvent.on(Consts.GameEvent.GAME_OVER, this.gameover, this.node)
+    clientEvent.on(Consts.GameEvent.GS_END, this.gameEnd, this.node)
+  }
+
+  start() {}
+
+  async init() {
     // 预加载资源
-    const resMgr = {
-      map: {
-        accessType: Prefab,
-        urls: [
-          'brick/bricks',
-          'brick/bricks1',
-          'brick/bricks2',
-          'brick/bricks3',
-          'road/road',
-          'box/box',
-        ],
-      },
-      // 地图
-      datas: {
-        accessType: null,
-        urls: ['maps/map1'],
-      },
-      // 地图
-      model: {
-        accessType: Prefab,
-        urls: ['man/newMan'],
-      },
-      GUI: {
-        accessType: Prefab,
-        urls: ['startPanel'],
-      },
-    }
-    ResManager.instance.preloadResPackage(
-      resMgr,
-      (now: number, total: number) => {},
-      this.Entergame
-    )
+    const res = await ResManager.instance.laodbacth(Consts.Assets.level2)
 
-    // 加载成功，显示开始界面2d
-    // end
-  }
-
-  private Entergame() {
-    // 显示开始UI
     uiManager.instance.showDialog('GUI', 'startPanel')
-    // 初始化地图
-    clientEvent.dispatchEvent('gameinit')
+    // 地图、角色初始化
+    clientEvent.dispatchEvent(Consts.GameEvent.GS_INIT)
   }
+
+  gameover() {
+    director.stopAnimation()
+    uiManager.instance.showDialog('GUI', 'resetPanel')
+  }
+
+  gameEnd() {}
 }

@@ -13,20 +13,24 @@ import {
   macro,
   MeshRenderer,
   Material,
+  Prefab,
 } from 'cc'
 import { gameConstants } from '../utils/gameConstants'
 import { gameUtils } from '../utils/gameUtils'
 import { mapConstants } from './mapConstants'
+import CSV from 'comma-separated-values'
+import { ResManager } from '../framework/ResManager'
+
 const { ccclass, property } = _decorator
 
 const MAP_PREFIX = 'map' //导出关卡的命名 例第一关：map1.csv
 const MAP_PATH = 'assets/res/datas/maps/' //项目内关卡路径
 const MAP_DATA_FIRST =
-  '编号,对应资源编号,位置,缩放,角度' +
+  '编号;对应资源编号;位置;缩放;角度' +
   '\n' +
-  'number,string,string,string,string' +
+  'number;string;string;string;string' +
   '\n' +
-  'ID,name,position,scale,euler' +
+  'ID;name;position;scale;euler' +
   '\n'
 /*
 1.数据保存为csv格式，策划可直接打开源文件修改关卡内的物件
@@ -35,6 +39,7 @@ const MAP_DATA_FIRST =
     在游戏内使用的时候 还是以无 '-'的名称使用
 3.地图中的物件都在mapItem节点中备份一份
 */
+
 @ccclass('MapLoader')
 export class MapLoader extends Component {
   @property(Material)
@@ -122,7 +127,7 @@ export class MapLoader extends Component {
    */
   private _saveMap() {
     //关卡数据处理
-    let data = MAP_DATA_FIRST + ''
+    let data = []
     for (let i = 0; i < this.node.children.length; i++) {
       let ndItem = this.node.children[i]
 
@@ -135,16 +140,20 @@ export class MapLoader extends Component {
       if (ndName === gameConstants.CSV_MAP_ITEM_NAME.ROAD_END_REWARD) continue //测试的结尾倍数圆台不存储
 
       //坐标/大小/旋转均以最多两位小数存储
+
       const pos = this._getNumberToFixed2(ndItem.getPosition())
+
       const scale = this._getNumberToFixed2(ndItem.getScale())
-      // const rotation = ndItem.eulerAngles
-      // console.error(rotation)
-      // const eulY = ndItem.eulerAngles.y
+
       const euler = this._getNumberToFixed2(ndItem.eulerAngles.clone())
-      //生成sting型数据  数据之间以,隔开 在最后加上换行\n
-      let itemData = `${i + 1},${ndName},${pos},${scale},${euler}` + '\n'
-      data += itemData
+
+      data.push([`${i + 1}`, ndName, pos, scale, euler])
     }
+
+    const datatext = new CSV(data, {
+      header: ['ID', 'name', 'position', 'scale', 'euler'],
+      cellDelimiter: ';',
+    }).encode()
 
     const projectPath = window.cce.project as string //当前项目文件路径
     projectPath.replace('\\', ' / ')
@@ -154,7 +163,7 @@ export class MapLoader extends Component {
     const write = () => {
       fs.writeFile(
         filePath + MAP_PREFIX + this.mapNameSave + '.csv',
-        data,
+        datatext,
         (err: Error) => {
           if (err) {
             console.warn(
@@ -211,11 +220,9 @@ export class MapLoader extends Component {
    * @returns string
    */
   private _getNumberToFixed2(data: Vec3) {
-    return JSON.stringify(
-      `${Number(data.x.toFixed(2))},${Number(data.y.toFixed(2))},${Number(
-        data.z.toFixed(2)
-      )}`
-    )
+    return `${Number(data.x.toFixed(2))},${Number(data.y.toFixed(2))},${Number(
+      data.z.toFixed(2)
+    )}`
   }
 
   /**
@@ -256,45 +263,31 @@ export class MapLoader extends Component {
    * 加载关卡信息到地图中
    * @param nowData
    */
-  private _setLoadDataToMap(nowData: any) {
+  private async _setLoadDataToMap(nowData: any) {
     this.node.destroyAllChildren()
     const ndMapItem = director.getScene()?.getChildByName('mapItem')!
 
-    let dataList = nowData.split('\n')
-    dataList = this._deleteUselessData(dataList)
+    const dataList = new CSV(nowData, {
+      header: true,
+      cellDelimiter: ';',
+    }).parse()
 
-    let i = 3 //   0/1/2行 为数据定义
-    while (dataList[i]) {
-      //举例：dataList[i] = "1,roadStraight3,"0.00,0.00,1.15","1.00,1.00,1.00",",0"
-      let itemData = dataList[i].split('"')
-      //举例：itemData =   ["1,roadStraight3,", "0.00,0.00,1.15", ",", "1.00,1.00,1.00", ",", ",0"]
-      itemData = this._deleteUselessData(itemData)
-      //举例：itemData = ["1,roadStraight3,", "0.00,0.00,1.15", "1.00,1.00,1.00", ",0"]
-      //                 id     name              position        scale             euler
-      const nameList = this._deleteUselessData(itemData[0].split(','))
-      //举例：nameList = ["1", "roadStraight3"]
-      //                 id     name
+    let i = 1 //   0行 为表头
 
-      // const euler = Number(itemData[3].split(',')[1])
-      //itemData[3] = ",0"
+    for (let i = 0; i < dataList.length; i++) {
+      const element = dataList[i]
+      let itemData = dataList[i]
 
-      //由于不支持resources加载， 因此使用复制节点的形式生成道路
-      const ndItem = instantiate(
-        ndMapItem.getChildByName(nameList[nameList.length - 1] + '-')
+      // 克隆 mapItem 下的节点
+      let ndItem = instantiate(
+        ndMapItem.getChildByName(itemData.name)
       ) as unknown as Node
+
       ndItem.parent = this.node
-      ndItem?.setPosition(gameUtils.setStringToVec3(itemData[1]))
-      ndItem?.setScale(gameUtils.setStringToVec3(itemData[2]))
-      ndItem?.setRotationFromEuler(gameUtils.setStringToVec3(itemData[3]))
-
-      i++
-
-      if (
-        nameList[nameList.length - 1] ===
-        gameConstants.CSV_MAP_ITEM_NAME.ROAD_END
-      ) {
-        this._initEndRewardCircle(ndItem)
-      }
+      ndItem.name = `${ndItem.name}-${i}`
+      ndItem?.setPosition(gameUtils.setStringToVec3(itemData.position))
+      ndItem?.setScale(gameUtils.setStringToVec3(itemData.scale))
+      ndItem?.setRotationFromEuler(gameUtils.setStringToVec3(itemData.euler))
     }
   }
 

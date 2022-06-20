@@ -6,14 +6,13 @@ export class brickManager extends Component {
   private _collider: Collider | null = null
   start() {
     // 检测碰撞
-    this._collider = this.node.getComponent(Collider)
-
-    this._collider.on('onCollisionEnter', this._handleCollider, this)
+    // this._collider = this.node.getComponent(Collider)
+    // this._collider.on('onCollisionEnter', this._handleCollider, this)
   }
 
-  private _handleCollider(event) {
-    console.error(event)
-  }
+  // private _handleCollider(event) {
+  //   console.error(event)
+  // }
 
   update(deltaTime: number) {}
 }

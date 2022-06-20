@@ -12,7 +12,7 @@ export class clientEvent {
    * @param {object} target 监听目标
    * @return 返回事件所在的事件队列索引
    */
-  public static on(eventName: string, handler: Function, target: any) {
+  public static on(eventName: string | number, handler: Function, target: any) {
     var objHandler: {} = { handler: handler, target: target }
     var handlerList: Array<any> = clientEvent._handlers[eventName] // 事件回调数组
 
@@ -63,7 +63,7 @@ export class clientEvent {
    * @param {string} eventName 分发事件名
    * @param  {...any} params 分发事件参数
    */
-  public static dispatchEvent(eventName: string, ...args: any) {
+  public static dispatchEvent(eventName: string | number, ...args: any) {
     var handlerList = clientEvent._handlers[eventName]
 
     // var args1 = []
