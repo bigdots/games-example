@@ -19,7 +19,7 @@ import { gameConstants } from '../utils/gameConstants'
 import { gameUtils } from '../utils/gameUtils'
 import { mapConstants } from './mapConstants'
 import CSV from 'comma-separated-values'
-import { ResManager } from '../framework/ResManager'
+import Papa from 'papaparse'
 
 const { ccclass, property } = _decorator
 
@@ -127,7 +127,7 @@ export class MapLoader extends Component {
    */
   private _saveMap() {
     //关卡数据处理
-    let data = []
+    let data = [['ID', 'name', 'position', 'scale', 'euler']]
     for (let i = 0; i < this.node.children.length; i++) {
       let ndItem = this.node.children[i]
 
@@ -150,10 +150,12 @@ export class MapLoader extends Component {
       data.push([`${i + 1}`, ndName, pos, scale, euler])
     }
 
-    const datatext = new CSV(data, {
-      header: ['ID', 'name', 'position', 'scale', 'euler'],
-      cellDelimiter: ';',
-    }).encode()
+    // const datatext = new CSV(data, {
+    //   header: ['ID', 'name', 'position', 'scale', 'euler'],
+    //   cellDelimiter: ';',
+    // }).encode()
+
+    const datatext = Papa.unparse(data)
 
     const projectPath = window.cce.project as string //当前项目文件路径
     projectPath.replace('\\', ' / ')
@@ -267,10 +269,16 @@ export class MapLoader extends Component {
     this.node.destroyAllChildren()
     const ndMapItem = director.getScene()?.getChildByName('mapItem')!
 
-    const dataList = new CSV(nowData, {
+    // const dataList = new CSV(nowData, {
+    //   header: true,
+    //   cellDelimiter: ';',
+    // }).parse()
+
+    const res = Papa.parse(nowData, {
       header: true,
-      cellDelimiter: ';',
-    }).parse()
+    })
+
+    const dataList = res.data
 
     let i = 1 //   0行 为表头
 

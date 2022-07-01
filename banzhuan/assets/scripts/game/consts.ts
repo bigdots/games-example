@@ -1,13 +1,42 @@
-import { Prefab } from 'cc'
+import { Prefab, Vec3 } from 'cc'
 
 enum GameState {
-  GS_Ready,
+  GS_INIT,
   GS_PLAYING,
+  GS_Arrived,
   GS_END,
+  GS_OVER,
+}
+
+enum CAMERA_TYPE_LIST {
+  READY,
+  READY_TO_PLAYING,
+  ENDROAD,
+  REWARD,
+  PLAYING,
+}
+
+const CAMERA_DATA = {
+  READY: {
+    //相对于角色，游戏开始阶段摄像机数据
+    offsetPosInit: new Vec3(-2, 8, -9),
+    offsetLookAtPos: new Vec3(0, 0, 0),
+  },
+  PLAYING: {
+    //相对于角色，游戏过程中摄像机数据
+    offsetPosInit: new Vec3(-2, 8, -9),
+    offsetLookAtPos: new Vec3(0, 0, 0),
+  },
+  ADDBRICK_OFFSET: new Vec3(0, 0.0225, 0.045),
+  ENDROAD: {
+    //相对于终点平台，结算阶段摄像机数据
+    offsetPosInit: new Vec3(0, 0.9, 2.6),
+    offsetLookAtPos: new Vec3(0, 0.3, 0),
+  },
+  CAMERA_MAX_BRICKNUM: 20,
 }
 
 enum GameEvent {
-  GS_READY,
   GS_INIT,
   GS_START,
   GS_END,
@@ -15,6 +44,8 @@ enum GameEvent {
   CHANGE_BRICKS_NUM,
   GAME_OVER,
   CHANGE_BRICKS_COLOR,
+  ARRIVE_AT_THE_END,
+  CHANGECAMERATYPE,
 }
 
 enum GROUP_TYPE {
@@ -24,37 +55,7 @@ enum GROUP_TYPE {
 }
 
 const Assets = {
-  level1: {
-    datas: {
-      accessType: null,
-      urls: ['maps/map1'],
-    },
-
-    GUI: {
-      accessType: Prefab,
-      urls: ['startPanel', 'resetPanel'],
-    },
-    prefab: {
-      accessType: Prefab,
-      urls: [
-        'datas/maps/map1',
-        'GUI/startPanel',
-        'GUI/resetPanel',
-        'prefab/car',
-        'prefab/brickgreen',
-        'prefab/bricksgreen',
-        'prefab/brickred',
-        'prefab/bricksred',
-        'prefab/brickyellow',
-        'prefab/bricksyellow',
-        'prefab/box',
-        'prefab/road',
-        'prefab/man',
-        'prefab/colorLighty',
-      ],
-    },
-  },
-  level2: [
+  level1: [
     'datas/maps/map1',
     'GUI/startPanel',
     'GUI/resetPanel',
@@ -84,4 +85,6 @@ export const Consts = {
   Assets,
   GROUP_TYPE,
   COLOR,
+  CAMERA_TYPE_LIST,
+  CAMERA_DATA,
 }

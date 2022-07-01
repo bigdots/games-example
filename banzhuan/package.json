@@ -2,13 +2,13 @@
   "creator": {
     "version": "3.5.0"
   },
-  "name": "NewProject",
+  "name": "banzhuan",
   "uuid": "38dbfc17-cd43-4702-9f2a-550f0d9b15d0",
   "version": "3.5.0",
   "devDependencies": {
     "@types/node": "^18.0.0"
   },
   "dependencies": {
-    "comma-separated-values": "^3.6.4"
+    "papaparse": "^5.3.2"
   }
 }

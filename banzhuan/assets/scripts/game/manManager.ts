@@ -5,10 +5,15 @@ import {
   Material,
   SkeletalAnimationComponent,
   SkinnedMeshRenderer,
+  RigidBody,
+  Vec3,
+  resources,
+  Prefab,
 } from 'cc'
 import { clientEvent } from '../framework/clientEvent'
 import { poolManager } from '../framework/poolManager'
 import { ResManager } from '../framework/ResManager'
+import { ccPromise } from '../framework/ccPromise'
 import { Consts } from './consts'
 const { ccclass, property } = _decorator
 
@@ -23,10 +28,9 @@ export class manManager extends Component {
   @property(Material)
   public matYellow: Material = null! //黄色皮肤
 
-  private _animationComponent: Animation | null = null
+  private _animationComponent: SkeletalAnimationComponent | null = null
   private _manSkinnedMeshRenderer: SkinnedMeshRenderer | null = null
 
-  private _role: Node | null = null
   static instance: manManager | null = null
 
   start() {}
@@ -36,6 +40,7 @@ export class manManager extends Component {
       manManager.instance = this
     } else {
       this.destroy()
+      return
     }
 
     clientEvent.on(
@@ -43,21 +48,32 @@ export class manManager extends Component {
       this._changeColor,
       this
     )
-    // this._animationComponent.play('run')
+  }
+
+  public kick() {
+    const man = this.node.getChildByName('man')
+    const rigidBody = man.getComponent(RigidBody)
+    rigidBody.setLinearVelocity(new Vec3(0, 3, 5))
+    this._animationComponent.play('kick')
+    // this._animationComponent.crossFade('idle', 3)
+  }
+
+  public animationPlay(ani: string) {
+    return this._animationComponent.play(ani)
   }
 
   public async loadMan() {
     while (this.node.children.length > 0) {
       poolManager.instance.putNode(this.node.children[0])
     }
-    const manPreab: any = await ResManager.instance.load('prefab', 'man')
+    const manPreab: any = await ccPromise.load('prefab/man', Prefab)
     const man = poolManager.instance.getNode(manPreab, this.node)
-    man.setPosition(0, 0, 0)
+    man.setPosition(0, 0.5, 0)
 
     // 动画控件
     this._animationComponent = man.getComponent(
       SkeletalAnimationComponent
-    ) as unknown as Animation
+    ) as unknown as SkeletalAnimationComponent
 
     // 获取皮肤组件
     const manModel = man.getChildByName('man01')

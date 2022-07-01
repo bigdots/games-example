@@ -10,9 +10,8 @@ export class resetPanel extends Component {
     const resetBtn: Node = this.node.getChildByName('Button')
 
     resetBtn.on(Node.EventType.TOUCH_END, (evt) => {
-      // clientEvent.dispatchEvent(Consts.GameEvent.GS_START)
-      // uiManager.instance.hideDialog('GUI', 'startPanel')
-      // director.reset()
+      clientEvent.dispatchEvent(Consts.GameEvent.GS_INIT)
+      uiManager.instance.hideDialog('GUI', 'resetPanel')
     })
   }
 

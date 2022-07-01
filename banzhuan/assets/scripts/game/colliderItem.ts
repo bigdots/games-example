@@ -12,6 +12,7 @@ const COLLIDER_NAME = Enum({
   COLOR_LIGHT_RED: 6,
   COLOR_LIGHT_YELLOW: 7,
   COLOR_LIGHT_GREEN: 8,
+  FINISH_LINE: 9,
 })
 
 @ccclass('colliderItem')
@@ -41,37 +42,35 @@ export class colliderItem extends Component {
     }
 
     // 获取砖的颜色
+
     switch (this.colliderName) {
       case COLLIDER_NAME.GREENBRICK:
         clientEvent.dispatchEvent(
           Consts.GameEvent.CHANGE_BRICKS_NUM,
           Consts.COLOR.GREEN
         )
+        this.node.destroy()
         break
       case COLLIDER_NAME.YELLOWBRICK:
         clientEvent.dispatchEvent(
           Consts.GameEvent.CHANGE_BRICKS_NUM,
           Consts.COLOR.YELLOW
         )
+        this.node.destroy()
         break
       case COLLIDER_NAME.REDRICK:
         clientEvent.dispatchEvent(
           Consts.GameEvent.CHANGE_BRICKS_NUM,
           Consts.COLOR.RED
         )
+        this.node.destroy()
         break
-
       case COLLIDER_NAME.BARRIER:
         this._handlerColliderBARRIER()
         break
+      default:
+        break
     }
-  }
-
-  private _handlerColliderBRICK() {
-    // clientEvent.dispatchEvent(Consts.GameEvent.CHANGE_PLAYER_COLOR)
-    /**
-     * 1是添加，0是减少
-     */
   }
 
   private _handlerColliderBARRIER() {
@@ -86,23 +85,33 @@ export class colliderItem extends Component {
     }
     switch (this.colliderName) {
       case COLLIDER_NAME.COLOR_LIGHT_YELLOW:
-        console.error('yellow')
         clientEvent.dispatchEvent(
           Consts.GameEvent.CHANGE_PLAYER_COLOR,
           Consts.COLOR.YELLOW
         )
+
         break
       case COLLIDER_NAME.COLOR_LIGHT_RED:
         clientEvent.dispatchEvent(
           Consts.GameEvent.CHANGE_PLAYER_COLOR,
           Consts.COLOR.RED
         )
+
         break
       case COLLIDER_NAME.COLOR_LIGHT_GREEN:
         clientEvent.dispatchEvent(
           Consts.GameEvent.CHANGE_PLAYER_COLOR,
           Consts.COLOR.GREEN
         )
+
+        break
+      case COLLIDER_NAME.FINISH_LINE:
+        clientEvent.dispatchEvent(
+          Consts.GameEvent.ARRIVE_AT_THE_END,
+          Consts.COLOR.GREEN
+        )
+        break
+      default:
         break
     }
   }

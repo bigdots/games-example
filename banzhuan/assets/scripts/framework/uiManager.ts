@@ -1,5 +1,13 @@
-import { _decorator, Node, find, isValid, instantiate, Prefab } from 'cc'
-import { resourceUtil } from './resourceUtil'
+import {
+  _decorator,
+  Node,
+  find,
+  isValid,
+  instantiate,
+  Prefab,
+  resources,
+} from 'cc'
+import { ccPromise } from './ccPromise'
 import { poolManager } from './poolManager'
 import { ResManager } from './ResManager'
 
@@ -55,22 +63,29 @@ export class uiManager {
     // 如果已经有了，则从缓存中取
     if (this._dictSharedPanel.hasOwnProperty(panelPath)) {
       panel = this._dictSharedPanel[panelPath]
+      // 添加到canvas
+      this.addToCanvas(panel)
     } else {
       // 如果是新界面，则重新加载
       this._dictLoading[panelPath] = true
-      const panelPrefab: any = await ResManager.instance.load(abName, url)
-      panel = instantiate(panelPrefab)
+
+      const panelPrefab = await ccPromise.load(panelPath, Prefab)
+      panel = instantiate(panelPrefab) as unknown as Node
       panel.setPosition(0, 0, 0)
 
       this._dictLoading[panelPath] = false
       this._dictSharedPanel[panelPath] = panel
+      // 添加到canvas
+      this.addToCanvas(panel)
     }
-    // 添加到canvas
-    if (isValid(panel)) {
-      panel.parent = find('Canvas')
-      panel.active = true
+  }
+
+  public addToCanvas(panel: Node) {
+    if (!isValid(panel)) {
       return
     }
+    panel.parent = find('Canvas')
+    panel.active = true
   }
 
   /**

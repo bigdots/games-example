@@ -1,17 +1,17 @@
-import { _decorator, Component, Vec3, Prefab } from 'cc'
+import { _decorator, Component, Vec3, Prefab, resources, Asset } from 'cc'
 import { clientEvent } from '../framework/clientEvent'
 import { poolManager } from '../framework/poolManager'
 import { ResManager } from '../framework/ResManager'
 import { Consts } from './consts'
 const { ccclass, property } = _decorator
-import CSV from 'comma-separated-values'
+// import CSV from 'comma-separated-values'
+import Papa from 'papaparse'
+import { ccPromise } from '../framework/ccPromise'
+import { GameManager } from './gameManager'
 
 @ccclass('mapManager')
 export class mapManager extends Component {
   static instance: mapManager | null = null
-  init() {
-    this._loadMap()
-  }
 
   onLoad() {
     if (mapManager.instance === null) {
@@ -20,36 +20,30 @@ export class mapManager extends Component {
       this.destroy()
       return
     }
-
-    clientEvent.on(
-      Consts.GameEvent.GS_INIT,
-      this._loadMap.bind(this),
-      this.node
-    )
   }
 
-  private async _loadMap() {
+  public async loadMap(level) {
     // 回收节点
     while (this.node.children.length > 0) {
       poolManager.instance.putNode(this.node.children[0])
     }
 
-    const mapdata: any = await ResManager.instance.load('datas', 'maps/map1')
+    const mapdata: any = await ccPromise.load(`datas/maps/map${level}`, null)
 
-    const mapItems = new CSV(mapdata.text, {
+    const res = Papa.parse(mapdata.text, {
       header: true,
-      cellDelimiter: ';',
-    }).parse()
+    })
+
+    const mapItems = res.data
 
     for (let i = 0; i < mapItems.length; i++) {
       const item = mapItems[i]
       const name: number = item.name
 
-      const ndItemPrefab = (await ResManager.instance.load(
-        'prefab',
-        item.name,
+      const ndItemPrefab: any = await ccPromise.load(
+        `prefab/${item.name}`,
         Prefab
-      )) as unknown as Prefab
+      )
 
       const ndItem = poolManager.instance.getNode(ndItemPrefab, this.node)
       ndItem.setPosition(this._stringToVec3(item.position))
@@ -62,4 +56,6 @@ export class mapManager extends Component {
     const p = str.split(',')
     return new Vec3(p[0], p[1], p[2])
   }
+
+  update() {}
 }

@@ -1,7 +1,17 @@
-import { _decorator, Component, Node, Material, Vec3, MeshRenderer } from 'cc'
+import {
+  _decorator,
+  Component,
+  Node,
+  Material,
+  Vec3,
+  MeshRenderer,
+  RigidBody,
+  resources,
+  Prefab,
+} from 'cc'
 import { clientEvent } from '../framework/clientEvent'
 import { poolManager } from '../framework/poolManager'
-import { ResManager } from '../framework/ResManager'
+import { ccPromise } from '../framework/ccPromise'
 import { Consts } from './consts'
 const { ccclass, property } = _decorator
 
@@ -16,13 +26,14 @@ export class carManager extends Component {
   @property(Material)
   public matYellow: Material = null! //黄色皮肤
 
+  @property(Node)
+  public brickParent: Node = null // 木板父节点
+
   private _currentcolor: number = Consts.COLOR.GREEN //默认绿色
 
-  private _car: Node | null = null
+  public brickNum: number = 0 // 界面上的砖块数
 
-  private _brickColor: number = Consts.COLOR.GREEN
-
-  private _birckNums: number = 0
+  private _initBricks: number = 10 // 初始砖块数
 
   start() {}
 
@@ -44,7 +55,7 @@ export class carManager extends Component {
   }
 
   private _changeMaterial(mat) {
-    const bricks = this._car.children
+    const bricks = this.brickParent.children
 
     for (let i = 0; i < bricks.length; i++) {
       const brick = bricks[i]
@@ -69,50 +80,85 @@ export class carManager extends Component {
     this._currentcolor = type
   }
 
+  arrived() {
+    const rigidBody = this.node.addComponent(RigidBody)
+
+    rigidBody.applyForce(new Vec3(0, 0, 500))
+  }
+
   public async loadCar() {
     while (this.node.children.length > 0) {
       poolManager.instance.putNode(this.node.children[0])
     }
-    const carPreab: any = await ResManager.instance.load('prefab', 'car')
-    this._car = poolManager.instance.getNode(carPreab, this.node)
 
-    this._car.setPosition(new Vec3(0, 0.3, 0.8))
+    const carPreab: any = await ccPromise.load('prefab/car', Prefab)
+    const car = poolManager.instance.getNode(carPreab, this.node)
+
+    car.setPosition(new Vec3(0, 0, 0))
+
+    this._createBricks(this._initBricks) //一开始先创建5个砖块
   }
 
   private async _changeBricks(type) {
     if (this._currentcolor === type) {
       // 增加砖块
-      this._birckNums = this._birckNums + 1
-      let brickPrefab = null
-      switch (this._currentcolor) {
-        case Consts.COLOR.GREEN:
-          brickPrefab = await ResManager.instance.load('prefab', 'brickgreen')
-          break
-        case Consts.COLOR.RED:
-          brickPrefab = await ResManager.instance.load('prefab', 'brickgred')
-          break
-        case Consts.COLOR.YELLOW:
-          brickPrefab = await ResManager.instance.load('prefab', 'brickyellow')
-          break
-        default:
-          console.error('找到不到该类型的砖块', type, this._currentcolor)
-      }
-
-      const brick = poolManager.instance.getNode(brickPrefab, this._car)
-      // brick.parent = this._car
-      const scale = brick.getScale()
-      brick.setPosition(0, this._birckNums * scale.y, 0)
+      this._createBricks(1)
     } else {
       // 减少砖块
-      this._birckNums = this._birckNums - 1
-      if (this._birckNums < 0) {
+      this._removeBricks(1)
+    }
+  }
+
+  private _removeBricks(num) {
+    if (!this.brickParent) {
+      return
+    }
+
+    while (num > 0) {
+      this.brickNum = this.brickNum - 1
+      if (this.brickNum < 0) {
         console.error('gameover')
         clientEvent.dispatchEvent(Consts.GameEvent.GAME_OVER)
         return
       }
-      this._car.children[this._car.children.length - 1].destroy()
+      this.brickParent.children[this.brickParent.children.length - 1].destroy()
+      num = num - 1
     }
   }
 
-  update(deltaTime: number) {}
+  private async _createBricks(num) {
+    if (!this.brickParent) {
+      return
+    }
+
+    // 更新砖块
+    let brickPrefab = null
+    switch (this._currentcolor) {
+      case Consts.COLOR.GREEN:
+        brickPrefab = await ccPromise.load('prefab/brickgreen')
+        break
+      case Consts.COLOR.RED:
+        brickPrefab = await ccPromise.load('prefab/brickgred')
+        break
+      case Consts.COLOR.YELLOW:
+        brickPrefab = await ccPromise.load('prefab/brickyellow')
+        break
+      default:
+        console.error('找到不到该类型的砖块', this._currentcolor)
+    }
+
+    while (num > 0) {
+      const brick = poolManager.instance.getNode(brickPrefab, this.brickParent)
+      const scale = brick.getScale()
+
+      const y = (this.brickNum * scale.y).toFixed(3)
+      console.error(0, this.brickNum * scale.y, 0)
+      brick.setPosition(0, this.brickNum * scale.y, 0)
+      this.brickNum = this.brickNum + 1
+
+      num = num - 1
+    }
+  }
+
+  async update(deltaTime: number) {}
 }
