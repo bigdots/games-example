@@ -32,8 +32,6 @@ export class GameManager extends Component {
       this.destroy()
       return
     }
-    // 音频控制
-    this.node.addComponent(AudioManager)
 
     clientEvent.on(Consts.GameEvent.GS_INIT, this.gameinit, this)
     clientEvent.on(Consts.GameEvent.GS_START, this.gamestart, this)
@@ -64,7 +62,6 @@ export class GameManager extends Component {
         uiManager.instance.showDialog('GUI', 'startPanel')
         cameraManager.instance.changeCameraType(Consts.CAMERA_TYPE_LIST.READY)
         uiManager.instance.hideDialog('GUI', 'loadingPanel', () => {})
-        console.error(AudioManager.instance)
         AudioManager.instance.playMusic('background', true)
       }
     )
