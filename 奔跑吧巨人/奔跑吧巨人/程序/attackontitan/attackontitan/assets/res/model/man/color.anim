@@ -1,0 +1,52 @@
+[
+  {
+    "__type__": "cc.AnimationClip",
+    "_name": "color",
+    "_objFlags": 0,
+    "_native": "",
+    "sample": 60,
+    "speed": 1,
+    "wrapMode": 1,
+    "events": [],
+    "_duration": 0.6666666666666666,
+    "_keys": [
+      [
+        0,
+        0.6666666666666666
+      ]
+    ],
+    "_stepness": 0,
+    "_curves": [
+      {
+        "modifiers": [
+          {
+            "__id__": 1
+          },
+          {
+            "__id__": 2
+          },
+          "materials",
+          0
+        ],
+        "data": {
+          "keys": 0,
+          "values": [
+            null,
+            null
+          ],
+          "easingMethods": {}
+        }
+      }
+    ],
+    "_commonTargets": [],
+    "_hash": 2175503200
+  },
+  {
+    "__type__": "cc.animation.HierarchyPath",
+    "path": "manAll/RootNode/man01"
+  },
+  {
+    "__type__": "cc.animation.ComponentPath",
+    "component": "cc.SkinnedMeshRenderer"
+  }
+]

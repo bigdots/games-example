@@ -24,7 +24,7 @@ import Papa from 'papaparse'
 const { ccclass, property } = _decorator
 
 const MAP_PREFIX = 'map' //导出关卡的命名 例第一关：map1.csv
-const MAP_PATH = 'assets/res/datas/maps/' //项目内关卡路径
+const MAP_PATH = 'assets/resources/datas/maps/' //项目内关卡路径
 const MAP_DATA_FIRST =
   '编号;对应资源编号;位置;缩放;角度' +
   '\n' +

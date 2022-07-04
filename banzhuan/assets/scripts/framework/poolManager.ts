@@ -21,6 +21,7 @@ export class poolManager {
    */
   public getNode(prefab: Prefab, parent: Node): Node {
     let name = prefab.name
+
     //@ts-ignore
     if (!prefab.position) {
       //@ts-ignore
@@ -47,6 +48,7 @@ export class poolManager {
 
     node.parent = parent
     node.active = true
+    // console.error(this._dictPool)
     return node
   }
 
@@ -58,6 +60,7 @@ export class poolManager {
       return
     }
     let name = node.name
+
     let pool = null
     if (this._dictPool.hasOwnProperty(name)) {
       //已有对应的对象池
@@ -78,6 +81,20 @@ export class poolManager {
     if (this._dictPool.hasOwnProperty(name)) {
       let pool = this._dictPool[name]
       pool.clear()
+    }
+  }
+
+  /**
+   *
+   */
+
+  public clear() {
+    for (const key in this._dictPool) {
+      if (this._dictPool.hasOwnProperty(key)) {
+        console.error(key)
+        const pool = this._dictPool[key]
+        pool.clear()
+      }
     }
   }
 

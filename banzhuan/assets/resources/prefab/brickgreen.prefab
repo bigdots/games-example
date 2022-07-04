@@ -130,7 +130,7 @@
       "__uuid__": "c929a19a-beab-40f7-97b4-e557217edd78",
       "__expectedType__": "cc.PhysicsMaterial"
     },
-    "_isTrigger": false,
+    "_isTrigger": true,
     "_center": {
       "__type__": "cc.Vec3",
       "x": 0,

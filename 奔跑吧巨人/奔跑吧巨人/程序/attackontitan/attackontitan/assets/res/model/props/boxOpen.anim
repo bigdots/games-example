@@ -1,0 +1,355 @@
+[
+  {
+    "__type__": "cc.AnimationClip",
+    "_name": "boxOpen",
+    "_objFlags": 0,
+    "_native": "",
+    "sample": 60,
+    "speed": 1,
+    "wrapMode": 1,
+    "events": [],
+    "_duration": 0.5,
+    "_keys": [
+      [
+        0,
+        0.16666666666666666,
+        0.3333333333333333,
+        0.5
+      ],
+      [
+        0,
+        0.5
+      ],
+      [
+        0,
+        0.5
+      ],
+      [
+        0,
+        0.5
+      ],
+      [
+        0,
+        0.5
+      ],
+      [
+        0,
+        0.5
+      ],
+      [
+        0,
+        0.3333333333333333,
+        0.5
+      ],
+      [
+        0,
+        0.5
+      ],
+      [
+        0,
+        0.5
+      ]
+    ],
+    "_stepness": 0,
+    "_curves": [
+      {
+        "modifiers": [
+          "scale"
+        ],
+        "data": {
+          "keys": 0,
+          "values": [
+            {
+              "__type__": "cc.Vec3",
+              "x": 0.41,
+              "y": 0.41,
+              "z": 0.41
+            },
+            {
+              "__type__": "cc.Vec3",
+              "x": 0.42,
+              "y": 0.48,
+              "z": 0.42
+            },
+            {
+              "__type__": "cc.Vec3",
+              "x": 0.4,
+              "y": 0.4,
+              "z": 0.4
+            },
+            {
+              "__type__": "cc.Vec3",
+              "x": 0.41,
+              "y": 0.41,
+              "z": 0.41
+            }
+          ],
+          "easingMethods": {}
+        }
+      },
+      {
+        "modifiers": [
+          {
+            "__id__": 1
+          },
+          "rotation"
+        ],
+        "data": {
+          "keys": 1,
+          "values": [
+            {
+              "__type__": "cc.Quat",
+              "x": -0.7071067811865475,
+              "y": 0,
+              "z": 0,
+              "w": 0.7071067811865476
+            },
+            {
+              "__type__": "cc.Quat",
+              "x": 0.8660254037844386,
+              "y": 0,
+              "z": 0,
+              "w": 0.5000000000000001
+            }
+          ],
+          "easingMethods": {
+            "0": [
+              0.08,
+              0.5,
+              0.47,
+              1.07
+            ]
+          }
+        }
+      },
+      {
+        "modifiers": [
+          {
+            "__id__": 2
+          },
+          "rotation"
+        ],
+        "data": {
+          "keys": 2,
+          "values": [
+            {
+              "__type__": "cc.Quat",
+              "x": -0.7071067811865477,
+              "y": 0,
+              "z": 0,
+              "w": 0.7071067811865474
+            },
+            {
+              "__type__": "cc.Quat",
+              "x": -0.7071067811865475,
+              "y": 0,
+              "z": 0,
+              "w": 0.7071067811865476
+            }
+          ],
+          "easingMethods": {}
+        }
+      },
+      {
+        "modifiers": [
+          "rotation"
+        ],
+        "data": {
+          "keys": 3,
+          "values": [
+            {
+              "__type__": "cc.Quat",
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            {
+              "__type__": "cc.Quat",
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            }
+          ],
+          "easingMethods": {
+            "0": [
+              0.03,
+              0.59,
+              0.54,
+              1.07
+            ]
+          }
+        }
+      },
+      {
+        "modifiers": [
+          {
+            "__id__": 3
+          },
+          "position"
+        ],
+        "data": {
+          "keys": 4,
+          "values": [
+            {
+              "__type__": "cc.Vec3",
+              "x": 0,
+              "y": 0,
+              "z": -1.465883900606e-15
+            },
+            {
+              "__type__": "cc.Vec3",
+              "x": 0,
+              "y": 0,
+              "z": -0.156
+            }
+          ],
+          "easingMethods": {}
+        }
+      },
+      {
+        "modifiers": [
+          {
+            "__id__": 4
+          },
+          "position"
+        ],
+        "data": {
+          "keys": 5,
+          "values": [
+            {
+              "__type__": "cc.Vec3",
+              "x": 0,
+              "y": 0.433604091405869,
+              "z": -0.342514038085938
+            },
+            {
+              "__type__": "cc.Vec3",
+              "x": 0,
+              "y": 0.55,
+              "z": -0.515
+            }
+          ],
+          "easingMethods": {}
+        }
+      },
+      {
+        "modifiers": [
+          "position"
+        ],
+        "data": {
+          "keys": 6,
+          "values": [
+            {
+              "__type__": "cc.Vec3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            {
+              "__type__": "cc.Vec3",
+              "x": 0,
+              "y": 0.078,
+              "z": -0.007
+            },
+            {
+              "__type__": "cc.Vec3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          ],
+          "easingMethods": {}
+        }
+      },
+      {
+        "modifiers": [
+          {
+            "__id__": 5
+          },
+          "rotation"
+        ],
+        "data": {
+          "keys": 7,
+          "values": [
+            {
+              "__type__": "cc.Quat",
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            {
+              "__type__": "cc.Quat",
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            }
+          ],
+          "easingMethods": {}
+        }
+      },
+      {
+        "modifiers": [
+          {
+            "__id__": 6
+          },
+          "position"
+        ],
+        "data": {
+          "keys": 8,
+          "values": [
+            {
+              "__type__": "cc.Vec3",
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            {
+              "__type__": "cc.Vec3",
+              "x": 0,
+              "y": 0.04,
+              "z": -0.15
+            }
+          ],
+          "easingMethods": {
+            "0": [
+              0.21,
+              0.34,
+              0.8,
+              0.87
+            ]
+          }
+        }
+      }
+    ],
+    "_commonTargets": [],
+    "_hash": 679855578
+  },
+  {
+    "__type__": "cc.animation.HierarchyPath",
+    "path": "RootNode/treasureChestNew01"
+  },
+  {
+    "__type__": "cc.animation.HierarchyPath",
+    "path": "RootNode/treasureChestNew02"
+  },
+  {
+    "__type__": "cc.animation.HierarchyPath",
+    "path": "RootNode/treasureChestNew02"
+  },
+  {
+    "__type__": "cc.animation.HierarchyPath",
+    "path": "RootNode/treasureChestNew01"
+  },
+  {
+    "__type__": "cc.animation.HierarchyPath",
+    "path": "diamondGroup"
+  },
+  {
+    "__type__": "cc.animation.HierarchyPath",
+    "path": "diamondGroup"
+  }
+]

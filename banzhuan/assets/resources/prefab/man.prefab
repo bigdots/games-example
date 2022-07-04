@@ -29,16 +29,10 @@
     "_components": [
       {
         "__id__": 77
-      },
-      {
-        "__id__": 79
-      },
-      {
-        "__id__": 81
       }
     ],
     "_prefab": {
-      "__id__": 83
+      "__id__": 79
     },
     "_lpos": {
       "__type__": "cc.Vec3",
@@ -2191,70 +2185,6 @@
   {
     "__type__": "cc.CompPrefabInfo",
     "fileId": "b2/DiNIjZTY49FqEqs8t31"
-  },
-  {
-    "__type__": "cc.RigidBody",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "__prefab": {
-      "__id__": 80
-    },
-    "_group": 16,
-    "_type": 1,
-    "_mass": 1,
-    "_allowSleep": true,
-    "_linearDamping": 0.1,
-    "_angularDamping": 0.1,
-    "_useGravity": true,
-    "_linearFactor": {
-      "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
-      "z": 1
-    },
-    "_angularFactor": {
-      "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
-      "z": 1
-    },
-    "_id": ""
-  },
-  {
-    "__type__": "cc.CompPrefabInfo",
-    "fileId": "97Ew7Uiw5D3KVSFdszvbKG"
-  },
-  {
-    "__type__": "cc.CylinderCollider",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "__prefab": {
-      "__id__": 82
-    },
-    "_material": null,
-    "_isTrigger": false,
-    "_center": {
-      "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 0,
-      "z": 0
-    },
-    "_radius": 0.5,
-    "_height": 2,
-    "_direction": 1,
-    "_id": ""
-  },
-  {
-    "__type__": "cc.CompPrefabInfo",
-    "fileId": "69SiJ2JvVJmpby7WH5VCsf"
   },
   {
     "__type__": "cc.PrefabInfo",

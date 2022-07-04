@@ -42,12 +42,6 @@ export class manManager extends Component {
       this.destroy()
       return
     }
-
-    clientEvent.on(
-      Consts.GameEvent.CHANGE_PLAYER_COLOR,
-      this._changeColor,
-      this
-    )
   }
 
   public kick() {
@@ -66,9 +60,8 @@ export class manManager extends Component {
     while (this.node.children.length > 0) {
       poolManager.instance.putNode(this.node.children[0])
     }
-    const manPreab: any = await ccPromise.load('prefab/man', Prefab)
+    const manPreab: any = await ResManager.instance.load('prefab/man', Prefab)
     const man = poolManager.instance.getNode(manPreab, this.node)
-    man.setPosition(0, 0.5, 0)
 
     // 动画控件
     this._animationComponent = man.getComponent(
@@ -79,10 +72,14 @@ export class manManager extends Component {
     const manModel = man.getChildByName('man01')
     this._manSkinnedMeshRenderer = manModel.getComponent(SkinnedMeshRenderer)
 
+    // 设置初始颜色，位置等
+    this.changeColor(Consts.COLOR.GREEN)
+    this.animationPlay('idle')
+    man.setPosition(0, 0.5, 0)
     return man
   }
 
-  private _changeColor(type) {
+  public changeColor(type) {
     switch (type) {
       case Consts.COLOR.GREEN:
         this._manSkinnedMeshRenderer.setMaterial(this.matGreen, 0)

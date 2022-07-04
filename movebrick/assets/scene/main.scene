@@ -114,7 +114,18 @@
     "_illuminanceHDR": 120000,
     "_illuminance": 120000,
     "_illuminanceLDR": 3.125,
-    "_id": "597uMYCbhEtJQc0ffJlcgA"
+    "_id": "597uMYCbhEtJQc0ffJlcgA",
+    "_shadowEnabled": true,
+    "_shadowPcf": 2,
+    "_shadowBias": 0.00001,
+    "_shadowNormalBias": 0,
+    "_shadowSaturation": 0.627451,
+    "_shadowDistance": 100,
+    "_shadowInvisibleOcclusionRange": 200,
+    "_shadowFixedArea": true,
+    "_shadowNear": 0.1,
+    "_shadowFar": 30,
+    "_shadowOrthoSize": 1
   },
   {
     "__type__": "cc.StaticLightSettings",
@@ -1023,35 +1034,23 @@
       "b": 0,
       "a": 160
     },
-    "_firstSetCSM": false,
-    "_fixedArea": true,
-    "_pcf": 2,
-    "_bias": 0.00001,
-    "_normalBias": 0,
-    "_near": 0.1,
-    "_far": 30,
-    "_shadowDistance": 100,
-    "_invisibleOcclusionRange": 200,
-    "_orthoSize": 1,
     "_maxReceived": 1,
     "_size": {
       "__type__": "cc.Vec2",
       "x": 1024,
       "y": 1024
-    },
-    "_saturation": 0.627451
+    }
   },
   {
     "__type__": "cc.SkyboxInfo",
-    "_applyDiffuseMap": false,
     "_envmapHDR": null,
     "_envmap": null,
     "_envmapLDR": null,
     "_diffuseMapHDR": null,
     "_diffuseMapLDR": null,
     "_enabled": false,
-    "_useIBL": false,
-    "_useHDR": true
+    "_useHDR": true,
+    "_envLightingType": 0
   },
   {
     "__type__": "cc.FogInfo",

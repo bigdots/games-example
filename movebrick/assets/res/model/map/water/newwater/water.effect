@@ -58,7 +58,7 @@ CCEffect %{
 }%
 
 CCProgram shared-ubos %{
-  #define pi 3.14
+  #pragma define pi 3.14
 
   #if USE_LIGHT
   uniform Light {
@@ -86,6 +86,7 @@ CCProgram water-vs %{
   precision highp float;
   #include <input-standard>
   #include <cc-global>
+  #include <decode-base>
   #include <cc-local-batch>
   #include <shared-ubos>
   #include <cc-shadow-map-vs>
@@ -428,6 +429,7 @@ CCProgram water-fs %{
     vec4 pbr = pbrParams;
     s.occlusion = clamp(pbr.x, 0.0, 0.96);
     s.roughness = clamp(pbr.y, 0.04, 1.0);
+    s.specularIntensity = 0.5;
     s.metallic = pbr.z;
 
     return albedo;

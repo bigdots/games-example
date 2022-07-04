@@ -10,6 +10,8 @@ import {
   lerp,
   EventTouch,
   clamp,
+  view,
+  RigidBody,
 } from 'cc'
 import { clientEvent } from '../framework/clientEvent'
 import { carManager } from './carManager'
@@ -21,11 +23,13 @@ const { ccclass, property } = _decorator
 @ccclass('palyerManager')
 export class palyerManager extends Component {
   static instance: palyerManager | null = null
-  private _stateX: number = 0
-  private _oldX: number = 0
+  private _linearVelocity: Vec3 = new Vec3()
 
   @property(Camera)
-  private _speed: Vec3 = new Vec3(0, 0, 0)
+  private _speedZ: number = 5
+  private _speedX: number = 2
+
+  private rigidBody: RigidBody
 
   onLoad() {
     if (palyerManager.instance === null) {
@@ -34,19 +38,30 @@ export class palyerManager extends Component {
       this.destroy()
       return
     }
+
+    this.rigidBody = this.node.getComponent(RigidBody)
+
+    clientEvent.on(
+      Consts.GameEvent.CHANGE_PLAYER_COLOR,
+      (type) => {
+        manManager.instance.changeColor(type)
+        carManager.instance.changeBrickColor(type)
+      },
+      this
+    )
   }
 
   public arrived() {
-    this._speed = new Vec3(0, 0, 0)
-    // carManager.instance.useGravity()
+    this._linearVelocity = new Vec3(0, 0, 0)
     manManager.instance.kick()
   }
 
   public async loadPLayer() {
+    // 初始化角色
     await manManager.instance.loadMan()
     await carManager.instance.loadCar()
-    this.node.setPosition(new Vec3(0, 0, 0))
-    this._speed = new Vec3(0, 0, 0)
+    this.node.setPosition(new Vec3(0, 0.2, 0))
+    this._linearVelocity = new Vec3(0, 0, 0)
   }
 
   public playerMove() {
@@ -56,42 +71,45 @@ export class palyerManager extends Component {
     input.on(Input.EventType.TOUCH_CANCEL, this.touchCancel.bind(this))
     // 奔跑状态
     manManager.instance.animationPlay('run')
-    this._speed = new Vec3(1, 0, 5)
+    this._linearVelocity = new Vec3(0, 0, this._speedZ)
+  }
+
+  public touchStart(touch: EventTouch) {
+    this._linearVelocity.x = 0
   }
 
   public touchEnd(touch: EventTouch) {
-    this._stateX = 0
+    this._linearVelocity.x = 0
   }
 
   public touchCancel(touch: EventTouch) {
-    this._stateX = 0
+    this._linearVelocity.x = 0
   }
 
   public touchMove(touch: EventTouch) {
     let x = touch.getUIDelta().x
-    if (x > 0) {
-      this._stateX = -this._speed.x // 左右
-    } else if (x < 0) {
-      this._stateX = this._speed.x
-    } else {
-      this._stateX = 0
+
+    if (Math.abs(x) <= 2) {
+      this._linearVelocity.x = 0
+      return
     }
 
-    //前后移动间距为3才视为移动，避免太灵敏
-    if (Math.abs(x - this._oldX) <= 3) {
-      this._stateX = 0
-      this._oldX = 0
-    } else {
-      this._oldX = x
-    }
+    // 根据滑动的幅度设置速度
+    this._speedX = Math.round(x / 10)
+
+    this._speedX = clamp(this._speedX, 2, 5)
+
+    console.error(x, this._speedX)
+
+    // 改变方向
+    this._linearVelocity.x = -this._speedX
   }
 
-  public move(dir, speed) {
-    const p = new Vec3()
-    this.node.getWorldPosition(p)
-    Vec3.scaleAndAdd(p, p, dir, speed)
-    p.x = clamp(p.x, -1, 1) // x的范围只能是-1~1之间
-    this.node.position = p
+  public move(dt) {
+    let v_0 = new Vec3()
+
+    this.rigidBody.setLinearVelocity(this._linearVelocity)
+    this.node.setRotationFromEuler(new Vec3(0, 0, 0))
   }
 
   public playerStop() {
@@ -99,12 +117,12 @@ export class palyerManager extends Component {
     input.off(Input.EventType.TOUCH_END)
     input.off(Input.EventType.TOUCH_CANCEL)
     manManager.instance.animationPlay('idle')
-    this._speed = new Vec3(0, 0, 0)
+    this._linearVelocity = new Vec3(0, 0, 0)
   }
 
   update(dt) {
     if ((GameManager.instance.state = Consts.GameState.GS_PLAYING)) {
-      this.move(new Vec3(this._stateX, 0, this._speed.z * dt), 0.5)
+      this.move(dt)
     }
   }
 }

@@ -69,7 +69,7 @@ export class uiManager {
       // 如果是新界面，则重新加载
       this._dictLoading[panelPath] = true
 
-      const panelPrefab = await ccPromise.load(panelPath, Prefab)
+      const panelPrefab = await ResManager.instance.load(panelPath, Prefab)
       panel = instantiate(panelPrefab) as unknown as Node
       panel.setPosition(0, 0, 0)
 

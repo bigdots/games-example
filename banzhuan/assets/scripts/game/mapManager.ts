@@ -28,7 +28,10 @@ export class mapManager extends Component {
       poolManager.instance.putNode(this.node.children[0])
     }
 
-    const mapdata: any = await ccPromise.load(`datas/maps/map${level}`, null)
+    const mapdata: any = await ResManager.instance.load(
+      `datas/maps/map${level}`,
+      null
+    )
 
     const res = Papa.parse(mapdata.text, {
       header: true,
@@ -40,7 +43,9 @@ export class mapManager extends Component {
       const item = mapItems[i]
       const name: number = item.name
 
-      const ndItemPrefab: any = await ccPromise.load(
+      // console.error('name', item)
+
+      const ndItemPrefab: any = await ResManager.instance.load(
         `prefab/${item.name}`,
         Prefab
       )
@@ -49,6 +54,12 @@ export class mapManager extends Component {
       ndItem.setPosition(this._stringToVec3(item.position))
       ndItem.setScale(this._stringToVec3(item.scale))
       ndItem.setRotationFromEuler(this._stringToVec3(item.euler))
+      console.error(ndItem.name)
+
+      // 将所有砖块激活
+      ndItem.children.forEach((item, index) => {
+        item.active = true
+      })
     }
   }
 

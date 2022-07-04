@@ -6,8 +6,10 @@ import {
   director,
   resources,
 } from 'cc'
-import { AudioManager } from '../framework/audioManager'
+import { AudioManager } from '../framework/AudioManager'
 import { clientEvent } from '../framework/clientEvent'
+import { poolManager } from '../framework/poolManager'
+import { ResManager } from '../framework/ResManager'
 import { uiManager } from '../framework/uiManager'
 import { cameraManager } from './cameraManager'
 import { carManager } from './carManager'
@@ -33,6 +35,8 @@ export class GameManager extends Component {
       return
     }
 
+    this.node.addComponent(AudioManager)
+
     clientEvent.on(Consts.GameEvent.GS_INIT, this.gameinit, this)
     clientEvent.on(Consts.GameEvent.GS_START, this.gamestart, this)
     clientEvent.on(Consts.GameEvent.GAME_OVER, this.gameover, this)
@@ -42,25 +46,30 @@ export class GameManager extends Component {
   }
 
   async gameinit() {
+    // debugger
     this.state = Consts.GameState.GS_INIT
     // 获取当前关卡
     this.level = localStorageManager.instance.getLevel()
 
+    poolManager.instance.clear()
+
+    console.error('level', this.level)
+
     // 预加载资源
     uiManager.instance.showDialog('GUI', 'loadingPanel')
-    resources.load(
+    ResManager.instance.loadArr(
       Consts.Assets[`level${this.level}`],
       null,
       (e, d, c) => {
         // 加载进度
-        console.debug('加载', (e / d).toFixed(2))
+        console.debug('加载', (e / d).toFixed(2), c.name)
       },
-      async (e) => {
+      async (error, assets) => {
         // 加载完成
         await mapManager.instance.loadMap(this.level)
         await palyerManager.instance.loadPLayer()
         uiManager.instance.showDialog('GUI', 'startPanel')
-        cameraManager.instance.changeCameraType(Consts.CAMERA_TYPE_LIST.READY)
+        cameraManager.instance.changeCameraType(Consts.CAMERA_TYPE_LIST.PLAYING)
         uiManager.instance.hideDialog('GUI', 'loadingPanel', () => {})
         AudioManager.instance.playMusic('background', true)
       }
@@ -82,12 +91,22 @@ export class GameManager extends Component {
     uiManager.instance.showDialog('GUI', 'resetPanel')
     // 玩家停止移动
     palyerManager.instance.playerStop()
+
+    AudioManager.instance.stopMusic()
   }
 
   gameEnd() {
     this.state = Consts.GameState.GS_END
 
-    // 玩家踢板
-    palyerManager.instance.arrived()
+    // // 玩家踢板
+    // palyerManager.instance.arrived()
+
+    // 继续游戏界面
+    uiManager.instance.showDialog('GUI', 'nextPanel')
+
+    // 玩家停止移动
+    palyerManager.instance.playerStop()
+
+    AudioManager.instance.stopMusic()
   }
 }

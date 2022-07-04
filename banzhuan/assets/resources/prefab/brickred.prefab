@@ -50,7 +50,7 @@
       "__type__": "cc.Vec3",
       "x": 0.7,
       "y": 0.1,
-      "z": 0.25
+      "z": 0.4
     },
     "_layer": 1073741824,
     "_euler": {
@@ -130,7 +130,7 @@
       "__uuid__": "c929a19a-beab-40f7-97b4-e557217edd78",
       "__expectedType__": "cc.PhysicsMaterial"
     },
-    "_isTrigger": false,
+    "_isTrigger": true,
     "_center": {
       "__type__": "cc.Vec3",
       "x": 0,

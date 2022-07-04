@@ -127,7 +127,7 @@
     "propertyPath": [
       "_name"
     ],
-    "value": "brickred-001"
+    "value": "brickred"
   },
   {
     "__type__": "cc.TargetInfo",
@@ -238,7 +238,7 @@
     "propertyPath": [
       "_name"
     ],
-    "value": "brickred-002"
+    "value": "brickred"
   },
   {
     "__type__": "cc.TargetInfo",
@@ -349,7 +349,7 @@
     "propertyPath": [
       "_name"
     ],
-    "value": "brickred-003"
+    "value": "brickred"
   },
   {
     "__type__": "cc.TargetInfo",
@@ -460,7 +460,7 @@
     "propertyPath": [
       "_name"
     ],
-    "value": "brickred-004"
+    "value": "brickred"
   },
   {
     "__type__": "cc.TargetInfo",
@@ -571,7 +571,7 @@
     "propertyPath": [
       "_name"
     ],
-    "value": "brickred-005"
+    "value": "brickred"
   },
   {
     "__type__": "cc.TargetInfo",
@@ -682,7 +682,7 @@
     "propertyPath": [
       "_name"
     ],
-    "value": "brickred-006"
+    "value": "brickred"
   },
   {
     "__type__": "cc.TargetInfo",

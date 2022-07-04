@@ -13,6 +13,8 @@ import { clientEvent } from '../framework/clientEvent'
 import { poolManager } from '../framework/poolManager'
 import { ccPromise } from '../framework/ccPromise'
 import { Consts } from './consts'
+import { AudioManager } from '../framework/AudioManager'
+import { ResManager } from '../framework/ResManager'
 const { ccclass, property } = _decorator
 
 @ccclass('carManager')
@@ -47,11 +49,6 @@ export class carManager extends Component {
     }
 
     clientEvent.on(Consts.GameEvent.CHANGE_BRICKS_NUM, this._changeBricks, this)
-    clientEvent.on(
-      Consts.GameEvent.CHANGE_PLAYER_COLOR,
-      this._changeBrickColor,
-      this
-    )
   }
 
   private _changeMaterial(mat) {
@@ -63,7 +60,7 @@ export class carManager extends Component {
     }
   }
 
-  private _changeBrickColor(type) {
+  public changeBrickColor(type) {
     switch (type) {
       case Consts.COLOR.GREEN:
         this._changeMaterial(this.matGreen)
@@ -87,19 +84,24 @@ export class carManager extends Component {
   }
 
   public async loadCar() {
+    this.brickNum = 0
     while (this.node.children.length > 0) {
       poolManager.instance.putNode(this.node.children[0])
     }
+    // brickParent下的子节点不能被回收，因为它改过材质，回收会导致加载红色的，变成绿色的
+    this.brickParent.destroyAllChildren()
 
-    const carPreab: any = await ccPromise.load('prefab/car', Prefab)
+    const carPreab: any = await ResManager.instance.load('prefab/car', Prefab)
     const car = poolManager.instance.getNode(carPreab, this.node)
 
     car.setPosition(new Vec3(0, 0, 0))
 
-    this._createBricks(this._initBricks) //一开始先创建5个砖块
+    await this._createBricks(this._initBricks) //一开始先创建5个砖块
+    this.changeBrickColor(Consts.COLOR.GREEN)
   }
 
   private async _changeBricks(type) {
+    AudioManager.instance.playSound('click')
     if (this._currentcolor === type) {
       // 增加砖块
       this._createBricks(1)
@@ -121,7 +123,10 @@ export class carManager extends Component {
         clientEvent.dispatchEvent(Consts.GameEvent.GAME_OVER)
         return
       }
+
+      // brickParent下的子节点不能被回收，因为它改过材质，回收会导致加载红色的，变成绿色的
       this.brickParent.children[this.brickParent.children.length - 1].destroy()
+
       num = num - 1
     }
   }
@@ -135,13 +140,19 @@ export class carManager extends Component {
     let brickPrefab = null
     switch (this._currentcolor) {
       case Consts.COLOR.GREEN:
-        brickPrefab = await ccPromise.load('prefab/brickgreen')
+        brickPrefab = await ResManager.instance.load(
+          'prefab/brickgreen',
+          Prefab
+        )
         break
       case Consts.COLOR.RED:
-        brickPrefab = await ccPromise.load('prefab/brickgred')
+        brickPrefab = await ResManager.instance.load('prefab/brickred', Prefab)
         break
       case Consts.COLOR.YELLOW:
-        brickPrefab = await ccPromise.load('prefab/brickyellow')
+        brickPrefab = await ResManager.instance.load(
+          'prefab/brickyellow',
+          Prefab
+        )
         break
       default:
         console.error('找到不到该类型的砖块', this._currentcolor)
@@ -151,8 +162,6 @@ export class carManager extends Component {
       const brick = poolManager.instance.getNode(brickPrefab, this.brickParent)
       const scale = brick.getScale()
 
-      const y = (this.brickNum * scale.y).toFixed(3)
-      console.error(0, this.brickNum * scale.y, 0)
       brick.setPosition(0, this.brickNum * scale.y, 0)
       this.brickNum = this.brickNum + 1
 

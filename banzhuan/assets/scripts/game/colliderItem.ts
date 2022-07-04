@@ -1,5 +1,7 @@
 import { _decorator, Component, Node, Collider, Enum } from 'cc'
+import { AudioManager } from '../framework/AudioManager'
 import { clientEvent } from '../framework/clientEvent'
+import { poolManager } from '../framework/poolManager'
 import { Consts } from './consts'
 const { ccclass, property } = _decorator
 
@@ -42,29 +44,7 @@ export class colliderItem extends Component {
     }
 
     // 获取砖的颜色
-
     switch (this.colliderName) {
-      case COLLIDER_NAME.GREENBRICK:
-        clientEvent.dispatchEvent(
-          Consts.GameEvent.CHANGE_BRICKS_NUM,
-          Consts.COLOR.GREEN
-        )
-        this.node.destroy()
-        break
-      case COLLIDER_NAME.YELLOWBRICK:
-        clientEvent.dispatchEvent(
-          Consts.GameEvent.CHANGE_BRICKS_NUM,
-          Consts.COLOR.YELLOW
-        )
-        this.node.destroy()
-        break
-      case COLLIDER_NAME.REDRICK:
-        clientEvent.dispatchEvent(
-          Consts.GameEvent.CHANGE_BRICKS_NUM,
-          Consts.COLOR.RED
-        )
-        this.node.destroy()
-        break
       case COLLIDER_NAME.BARRIER:
         this._handlerColliderBARRIER()
         break
@@ -84,11 +64,40 @@ export class colliderItem extends Component {
       return
     }
     switch (this.colliderName) {
+      case COLLIDER_NAME.GREENBRICK:
+        clientEvent.dispatchEvent(
+          Consts.GameEvent.CHANGE_BRICKS_NUM,
+          Consts.COLOR.GREEN
+        )
+        this.node.active = false
+        // poolManager.instance.putNode(this.node)
+        break
+      case COLLIDER_NAME.YELLOWBRICK:
+        clientEvent.dispatchEvent(
+          Consts.GameEvent.CHANGE_BRICKS_NUM,
+          Consts.COLOR.YELLOW
+        )
+        this.node.active = false
+        // poolManager.instance.putNode(this.node)
+        break
+      case COLLIDER_NAME.REDRICK:
+        clientEvent.dispatchEvent(
+          Consts.GameEvent.CHANGE_BRICKS_NUM,
+          Consts.COLOR.RED
+        )
+        this.node.active = false
+        // poolManager.instance.putNode(this.node)
+        break
+      case COLLIDER_NAME.BARRIER:
+        this._handlerColliderBARRIER()
+        break
       case COLLIDER_NAME.COLOR_LIGHT_YELLOW:
         clientEvent.dispatchEvent(
           Consts.GameEvent.CHANGE_PLAYER_COLOR,
           Consts.COLOR.YELLOW
         )
+
+        AudioManager.instance.playSound('changeColor')
 
         break
       case COLLIDER_NAME.COLOR_LIGHT_RED:
@@ -96,6 +105,7 @@ export class colliderItem extends Component {
           Consts.GameEvent.CHANGE_PLAYER_COLOR,
           Consts.COLOR.RED
         )
+        AudioManager.instance.playSound('changeColor')
 
         break
       case COLLIDER_NAME.COLOR_LIGHT_GREEN:
@@ -103,13 +113,11 @@ export class colliderItem extends Component {
           Consts.GameEvent.CHANGE_PLAYER_COLOR,
           Consts.COLOR.GREEN
         )
+        AudioManager.instance.playSound('changeColor')
 
         break
       case COLLIDER_NAME.FINISH_LINE:
-        clientEvent.dispatchEvent(
-          Consts.GameEvent.ARRIVE_AT_THE_END,
-          Consts.COLOR.GREEN
-        )
+        clientEvent.dispatchEvent(Consts.GameEvent.GS_END)
         break
       default:
         break
