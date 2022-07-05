@@ -14,7 +14,7 @@ import { uiManager } from '../framework/uiManager'
 import { cameraManager } from './cameraManager'
 import { carManager } from './carManager'
 import { Consts } from './consts'
-import { localStorageManager } from './localStorageManager'
+import { localStorageManager } from '../framework/localStorageManager'
 import { mapManager } from './mapManager'
 import { palyerManager } from './palyerManager'
 
@@ -49,14 +49,23 @@ export class GameManager extends Component {
     // debugger
     this.state = Consts.GameState.GS_INIT
     // 获取当前关卡
+
+    debugger
+
     this.level = localStorageManager.instance.getLevel()
 
-    poolManager.instance.clear()
+    // poolManager.instance.clear()
 
     console.error('level', this.level)
 
     // 预加载资源
     uiManager.instance.showDialog('GUI', 'loadingPanel')
+
+    if (!Consts.Assets[`level${this.level}`]) {
+      uiManager.instance.hideDialog('GUI', 'loadingPanel', () => {})
+      return
+    }
+
     ResManager.instance.loadArr(
       Consts.Assets[`level${this.level}`],
       null,
@@ -78,6 +87,8 @@ export class GameManager extends Component {
 
   gamestart() {
     this.state = Consts.GameState.GS_PLAYING
+
+    uiManager.instance.showDialog('GUI', 'levelPanel')
 
     // 玩家移动
     palyerManager.instance.playerMove()
@@ -108,5 +119,7 @@ export class GameManager extends Component {
     palyerManager.instance.playerStop()
 
     AudioManager.instance.stopMusic()
+
+    localStorageManager.instance.setLevel()
   }
 }

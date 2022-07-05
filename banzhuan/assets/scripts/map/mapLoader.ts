@@ -291,6 +291,8 @@ export class MapLoader extends Component {
         ndMapItem.getChildByName(itemData.name)
       ) as unknown as Node
 
+      // console.error(ndItem.uuid)
+
       ndItem.parent = this.node
       ndItem.name = `${ndItem.name}-${i}`
       ndItem?.setPosition(gameUtils.setStringToVec3(itemData.position))

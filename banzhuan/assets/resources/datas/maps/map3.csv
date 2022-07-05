@@ -1,8 +1,8 @@
 ID,name,position,scale,euler
 1,road,"0,0,80","1,1,60","0,0,0"
-2,bricksgreen,"0,0,13","1,1,1","0,0,0"
-3,bricksyellow,"1,0,13","1,1,1","0,0,0"
-4,bricksred,"-1,0,13","1,1,1","0,0,0"
+2,bricksgreen,"0,0,110","1,1,1","0,0,0"
+3,bricksyellow,"1,0,110","1,1,1","0,0,0"
+4,bricksred,"-1,0,110","1,1,1","0,0,0"
 5,bricksgreen,"-1,0,18","1,1,1","0,0,0"
 6,bricksgreen,"1,0,26","1,1,1","0,0,0"
 7,bricksgreen,"0,0,48","1,1,1","0,0,0"
@@ -44,3 +44,4 @@ ID,name,position,scale,euler
 43,bricksyellow,"0,0,98","1,1,1","0,0,0"
 44,bricksgreen,"1,0,98","1,1,1","0,0,0"
 45,bricksred,"-1,0,98","1,1,1","0,0,0"
+46,rotatingBlade,"0,0,105","2,2,2","0,0,0"

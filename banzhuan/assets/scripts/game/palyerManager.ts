@@ -97,7 +97,7 @@ export class palyerManager extends Component {
     // 根据滑动的幅度设置速度
     this._speedX = Math.round(Math.abs(x) / 10)
 
-    this._speedX = clamp(this._speedX, 2, 5)
+    this._speedX = clamp(this._speedX, 5, 5)
 
     console.error(x, this._speedX)
     // 改变方向

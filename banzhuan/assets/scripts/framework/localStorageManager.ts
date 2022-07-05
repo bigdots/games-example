@@ -63,9 +63,14 @@ export class localStorageManager {
     return level
   }
 
-  public updateLevel(): void {
-    let level = this.getLevel()
-    level = level + 1
+  public setLevel(level?: string): void {
+    if (!level) {
+      level = this.getLevel()
+      console.error(1, level)
+      level = (parseInt(level) + 1).toString()
+    }
+    console.error(2, level)
+
     this.setStrorage('level', level)
   }
 }

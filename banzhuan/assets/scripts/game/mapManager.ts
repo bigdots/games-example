@@ -54,7 +54,7 @@ export class mapManager extends Component {
       ndItem.setPosition(this._stringToVec3(item.position))
       ndItem.setScale(this._stringToVec3(item.scale))
       ndItem.setRotationFromEuler(this._stringToVec3(item.euler))
-      console.error(ndItem.name)
+      // console.error(ndItem.name)
 
       // 将所有砖块激活
       ndItem.children.forEach((item, index) => {
